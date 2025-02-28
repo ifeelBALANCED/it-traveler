@@ -60,8 +60,8 @@
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx,vue}": [
-      "bun run lint && bun run format",
-      "git add ."
+      "bun run lint",
+      "bun run format"
     ]
   },
   "commitlint": {
