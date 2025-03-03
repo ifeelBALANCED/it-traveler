@@ -4,12 +4,12 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "vite --open",
+    "dev": "bunx --bun vite --open",
+    "build-only": "bunx --bun vite build",
     "build": "run-p type-check \"build-only {@}\" --",
     "preview": "vite preview",
     "test:unit": "vitest",
     "test:e2e": "playwright test",
-    "build-only": "vite build",
     "type-check": "vue-tsc --build",
     "lint:oxlint": "oxlint . --fix -D correctness --ignore-path .gitignore",
     "lint:eslint": "eslint . --fix",
@@ -18,8 +18,7 @@
     "prepare": "husky"
   },
   "engines": {
-    "node": ">= 20.x",
-    "pnpm": ">= 9.x"
+    "node": ">=22.0.0 <23.0.0"
   },
   "dependencies": {
     "@unhead/vue": "^1.11.20",
@@ -31,6 +30,7 @@
     "@commitlint/cli": "^19.7.1",
     "@commitlint/config-conventional": "^19.7.1",
     "@playwright/test": "^1.50.1",
+    "@tailwindcss/vite": "^4.0.9",
     "@tsconfig/node22": "^22.0.0",
     "@types/jsdom": "^21.1.7",
     "@types/node": "^22.13.4",
@@ -60,13 +60,44 @@
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx,vue}": [
-      "bun run lint",
+      "bun run lint:eslint",
       "bun run format"
     ]
   },
   "commitlint": {
-    "extends": [
-      "@commitlint/config-conventional"
-    ]
+    "extends": ["@commitlint/config-conventional"],
+    "rules": {
+      "body-leading-blank": [1, "always"],
+      "body-max-line-length": [2, "always", 100],
+      "footer-leading-blank": [1, "always"],
+      "footer-max-line-length": [2, "always", 100],
+      "header-max-length": [2, "always", 100],
+      "scope-case": [2, "always", ["sentence-case", "start-case", "pascal-case", "upper-case"]],
+      "subject-case": [2, "never", ["sentence-case", "start-case", "pascal-case", "upper-case"]],
+      "subject-empty": [2, "never"],
+      "subject-full-stop": [2, "never", "."],
+      "type-case": [2, "always", "lower-case"],
+      "type-empty": [2, "never"],
+      "type-enum": [
+        2,
+        "always",
+        [
+          "build",
+          "chore",
+          "ci",
+          "docs",
+          "feat",
+          "fix",
+          "perf",
+          "refactor",
+          "revert",
+          "style",
+          "test",
+          "translation",
+          "security",
+          "changeset"
+        ]
+      ]
+    }
   }
 }
