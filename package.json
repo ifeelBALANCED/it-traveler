@@ -61,6 +61,7 @@
   "lint-staged": {
     "*.{js,jsx,ts,tsx,vue}": [
       "bun run lint:eslint",
+      "bun run lint:oxlint",
       "bun run format"
     ]
   },
