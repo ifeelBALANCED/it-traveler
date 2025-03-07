@@ -1,0 +1,21 @@
+commit-msg:
+  jobs:
+    - name: commitlint
+      # {commit_msg_file} is replaced by the path to the commit message file
+      run: bunx --no-install commitlint --edit {commit_msg_file}
+
+pre-commit:
+  jobs:
+    - name: lint-staged
+      run: bunx lint-staged
+
+post-merge:
+  jobs:
+    - name: dependency-check
+      run: |
+        if git diff --name-only HEAD@{1} HEAD | grep -E 'bun.lock'; then
+          echo "Detected changes in dependencies, running bun install..."
+          bun install
+        else
+          echo "No dependency changes detected, skipping bun install."
+        fi
