@@ -1,0 +1,9 @@
+#!/bin/sh
+
+# shellcheck disable=SC1083
+if git diff --name-only HEAD@{1} HEAD | grep -E 'bun.lock'; then
+  echo "Detected changes in dependencies, running bun install..."
+  bun install
+else
+  echo "No dependency changes detected, skipping bun install."
+fi
