@@ -20,3 +20,4 @@ post-merge:
         else
           echo "No dependency changes detected, skipping bun install."
         fi
+        
