@@ -1,13 +1,21 @@
 commit-msg:
+  parallel: true
   commands:
-    "lint commit message":
-      run: bunx --no-install commitlint --edit {1}
+    commitlint:
+      run: bunx --no-install commitlint --edit
 
 pre-commit:
+  parallel: true
   commands:
     lint:
-      run: bunx lint-staged
-      stage_fixed: true
+      glob: '*.{js,jsx,ts,tsx,vue}'
+      run: bun run lint {staged_files}
+    pretty:
+      glob: '*.{js,jsx,ts,tsx,vue}'
+      run: bun run format
+      # TODO add test for unit and e2e
+#    test:
+#        run: bun run test
 
 post-merge:
   commands:
