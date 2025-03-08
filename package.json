@@ -14,8 +14,7 @@
     "lint:oxlint": "oxlint . --fix -D correctness --ignore-path .gitignore",
     "lint:eslint": "eslint . --fix",
     "lint": "run-s lint:*",
-    "format": "prettier --write src/",
-    "prepare": "husky"
+    "format": "prettier --write src/"
   },
   "engines": {
     "node": ">=22.0.0 <23.0.0"
@@ -45,9 +44,9 @@
     "eslint-plugin-oxlint": "^0.15.13",
     "eslint-plugin-playwright": "^2.2.0",
     "eslint-plugin-vue": "^10.0.0",
-    "husky": "^9.1.7",
     "jiti": "^2.4.2",
     "jsdom": "^26.0.0",
+    "lefthook": "^1.11.3",
     "lint-staged": "^15.4.3",
     "npm-run-all2": "^7.0.2",
     "oxlint": "^0.15.13",
