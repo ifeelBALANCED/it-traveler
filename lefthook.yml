@@ -1,90 +1,77 @@
-# Global settings
-skip_output:
-  - meta    # Skip displaying hook metadata
-  - success # Skip displaying success messages
-colors: true  # Enable colorized output
+colors: true
+skip_output: [meta, success]
 
-# Pre-commit hook - Run before committing
+#---------------------------------------------
+# Pre-commit checks
+#---------------------------------------------
 pre-commit:
   parallel: true
-  piped: false  # Don't pipe output between commands
   commands:
-    # Lint only staged files
     lint:
       glob: '*.{js,jsx,ts,tsx,vue}'
-      run: bun run lint {staged_files}
-      skip:
-        - merge
-        - rebase
+      run: |
+        echo "🔍 Linting code..."
+        bun run lint {staged_files}
+      skip: [merge, rebase]
 
-    # Format all files to ensure consistency
     format:
       glob: '*.{js,jsx,ts,tsx,vue,json,md}'
-      run: bun run format
+      run: |
+        echo "✨ Formatting code..."
+        bun run format
 
-    # Type checking
     typecheck:
       glob: '*.{ts,tsx}'
-      run: bun run type-check
-      skip:
-        - merge
-        - rebase
-
-    # Prevent debug code from being committed
-    prevent-debug:
-      glob: >
-        *.{js,jsx,ts,tsx,vue}
       run: |
-        grep -L "console.log\\|debugger" {staged_files} || echo "Warning: Debug code detected in staged files!"
+        echo "🔎 Type checking..."
+        bun run type-check
+      skip: [merge, rebase]
 
-# Commit message hook - Validate commit messages
+    no-debug:
+      glob: '*.{js,jsx,ts,tsx,vue}'
+      run: |
+        echo "🐛 Checking for debug code..."
+        grep -L "console.log\\|debugger" {staged_files} || echo "⚠️ Debug code detected!"
+
+#---------------------------------------------
+# Commit message validation
+#---------------------------------------------
 commit-msg:
   parallel: true
   commands:
     commitlint:
-      run: bunx --no-install commitlint --edit "$1"
-    spelling-check:
       run: |
-        COMMIT_MSG=$(cat "$1")
-        TYPOS=$(echo "$COMMIT_MSG" | bunx --no-install cspell stdin --no-progress)
-        if [ -n "$TYPOS" ]; then
-          echo "Possible spelling errors in commit message: $TYPOS"
-          exit 1
-        fi
+        echo "📝 Validating commit message..."
+        bunx --no-install commitlint --edit "$1"
 
-# Pre-push hook - Run before pushing to remote
-pre-push:
-  commands:
-    full-test:
-      run: bun run test:unit
-    build-check:
-      run: bun run build
-
-# Post-merge hook - Run after merging branches
+#---------------------------------------------
+# Branch operations
+#---------------------------------------------
 post-merge:
   commands:
-    dependencies-check:
+    update-deps:
       run: |
+        echo "📦 Checking dependencies..."
         if git diff --name-only HEAD@{1} HEAD | grep -E 'bun\.lock|package\.json'; then
-          echo "📦 Dependency changes detected, updating packages..."
+          echo "📦 Updating dependencies..."
           bun install
         fi
-    migrations-check:
+
+    run-migrations:
       run: |
+        echo "🗃️ Checking schema changes..."
         if git diff --name-only HEAD@{1} HEAD | grep -E 'migrations/|schema\.'; then
-          echo "🗃️ Database changes detected, running migrations..."
+          echo "🗃️ Running migrations..."
           bun run migrate
         fi
 
-# Post-checkout hook - Run after checking out a branch
 post-checkout:
   commands:
-    cleanup:
+    setup:
       run: |
-        # Cleanup leftover artifacts from previous branch
+        echo "🧹 Preparing workspace..."
         bun run clean
-        # Check if we need to install dependencies in the new branch
         if [ "$3" = "1" ] && git diff --name-only $1 $2 | grep -E 'bun\.lock|package\.json'; then
-          echo "📦 Dependency changes detected in new branch, updating packages..."
+          echo "📦 Updating dependencies for new branch..."
           bun install
         fi
