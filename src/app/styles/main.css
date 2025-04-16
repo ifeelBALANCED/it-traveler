@@ -1,1 +1,79 @@
 @import 'tailwindcss';
+
+:root {
+  --color-primary: #f3743d;
+  --color-action: #2c2c2c66;
+  --color-primary-light: #f3743d;
+  --color-action-edit: var(--color-primary);
+  --color-action-delete: #dc2626;
+}
+
+@layer components {
+  .bg-primary {
+    @apply bg-[color:var(--color-primary)];
+  }
+
+  .button-primary {
+    @apply bg-[color:var(--color-primary-light)] text-white;
+  }
+
+  .action-edit {
+    @apply text-[color:var(--color-action)] transition-colors duration-200 ease-in-out hover:text-[color:var(--color-action-edit)];
+  }
+
+  .action-delete {
+    @apply text-[color:var(--color-action)] transition-colors duration-200 ease-in-out hover:text-[color:var(--color-action-delete)];
+  }
+
+  .text-h1 {
+    @apply text-5xl font-bold leading-tight;
+  }
+
+  .text-h2 {
+    @apply text-4xl font-bold leading-snug;
+  }
+
+  .text-h3 {
+    @apply text-3xl font-semibold leading-snug;
+  }
+
+  .text-h4 {
+    @apply text-2xl font-semibold leading-normal;
+  }
+
+  .text-h5 {
+    @apply text-xl font-semibold leading-normal;
+  }
+
+  .text-h6 {
+    @apply text-lg font-semibold leading-normal;
+  }
+
+  .text-subtitle-1 {
+    @apply text-base font-medium;
+  }
+
+  .text-subtitle-2 {
+    @apply text-sm font-medium;
+  }
+
+  .text-body-1 {
+    @apply text-base font-normal;
+  }
+
+  .text-body-2 {
+    @apply text-sm font-normal;
+  }
+
+  .text-button {
+    @apply text-sm font-semibold uppercase tracking-wide;
+  }
+
+  .text-caption {
+    @apply text-xs font-normal;
+  }
+
+  .text-overline {
+    @apply text-xs font-semibold uppercase tracking-widest;
+  }
+}

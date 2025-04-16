@@ -1,11 +1,15 @@
 <script setup lang="ts">
-import { BaseButton } from '@/shared/ui/base-button'
+import { computed } from 'vue'
+import { useRoute } from 'vue-router'
+import { DefaultLayout } from '@/shared/ui/layouts/DefaultLayout'
+
+const route = useRoute()
+
+const layout = computed(() => route.meta.layout ?? DefaultLayout)
 </script>
 
 <template>
-  <div>
-    <BaseButton />
-  </div>
+  <component :is="layout">
+    <router-view />
+  </component>
 </template>
-
-<style></style>
