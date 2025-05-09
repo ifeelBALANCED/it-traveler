@@ -1,11 +1,10 @@
+@import './variables.css';
 @import 'tailwindcss';
 
-:root {
-  --color-primary: #f3743d;
-  --color-action: #2c2c2c66;
-  --color-primary-light: #f3743d;
-  --color-action-edit: var(--color-primary);
-  --color-action-delete: #dc2626;
+@layer base {
+  body {
+    font-family: 'Inter', sans-serif;
+  }
 }
 
 @layer components {
@@ -15,6 +14,11 @@
 
   .button-primary {
     @apply bg-[color:var(--color-primary-light)] text-white;
+  }
+
+  .button-gradient {
+    @apply text-white;
+    background-image: linear-gradient(to right, #FFA279, #F3743D);
   }
 
   .action-edit {

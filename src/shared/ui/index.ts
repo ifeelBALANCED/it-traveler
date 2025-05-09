@@ -1,4 +1,7 @@
 export { Button } from './button'
 export { Icon } from './icon'
+export { Input } from './input'
+export { PasswordInput } from './password-input'
+export { Textarea } from './textarea'
 export { Typography } from './typography'
 export { BaseLayout, HomeLayout } from './layouts'

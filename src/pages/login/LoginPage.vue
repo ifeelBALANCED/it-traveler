@@ -1,5 +1,9 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { LoginForm } from '@/features/auth'
+</script>
 
-<template>Login</template>
+<template>
+  <LoginForm />
+</template>
 
 <style scoped></style>

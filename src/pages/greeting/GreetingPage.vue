@@ -10,7 +10,7 @@ import { ButtonVariants, ROUTES } from '@/shared/types'
   >
     <div class="grid place-items-center w-full max-w-lg mx-auto">
       <div class="grid gap-6 justify-items-center">
-        <Icon name="map-pin" icon-class="mb-1" width="6.25em" height="6.25em" fill="white" />
+        <Icon name="map-pin" class="mb-1" width="6.25em" height="6.25em" color="white" />
         <h1 class="text-3xl sm:text-4xl font-bold">IT traveler</h1>
         <p class="leading-6 max-w-md">
           Простий і зручний веб додаток, який дозволить тобі відмічати твої улюблені місця, а також

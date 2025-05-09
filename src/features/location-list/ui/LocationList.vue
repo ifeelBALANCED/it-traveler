@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import LocationCard from './LocationCard.vue'
+import { Typography } from '@/shared/ui'
 
 const locations = ref([
   {
@@ -39,19 +40,13 @@ const handleDelete = (id: number) => {
 </script>
 
 <template>
-  <section class="flex flex-col">
-    <h1 class="text-xl font-bold">Location List</h1>
-
+  <section class="flex flex-col mx-6 gap-y-4.5">
+    <typography variant="subtitle-2" class="text-[color:var(--color-action)]">
+      Додані маркери
+    </typography>
     <ul class="space-y-3 divide-y divide-[#2C2C2C1A]">
-      <li v-for="location in locations" :key="location.id" class="mt-6 mx-6">
-        <LocationCard
-          :id="location.id"
-          :name="location.name"
-          :description="location.description"
-          :image="location.image"
-          @edit="handleEdit"
-          @delete="handleDelete"
-        />
+      <li v-for="location in locations" :key="location.id">
+        <location-card :location="location" @edit="handleEdit" @delete="handleDelete" />
       </li>
     </ul>
   </section>

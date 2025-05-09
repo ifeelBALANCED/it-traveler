@@ -62,7 +62,6 @@ post-checkout:
     setup:
       run: |
         echo "🧹 Preparing workspace..."
-        bun run clean
         if [ "$3" = "1" ] && git diff --name-only $1 $2 | grep -E 'bun\.lock|package\.json'; then
           echo "📦 Updating dependencies for new branch..."
           bun install
