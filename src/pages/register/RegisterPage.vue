@@ -3,7 +3,7 @@ import { RegisterForm } from '@/features/auth'
 </script>
 
 <template>
-  <RegisterForm />
+  <register-form />
 </template>
 
 <style scoped></style>

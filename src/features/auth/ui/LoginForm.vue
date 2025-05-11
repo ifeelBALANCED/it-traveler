@@ -1,23 +1,44 @@
 <script setup lang="ts">
-import { reactive } from 'vue'
-import { PasswordInput, Input, Button } from '@/shared/ui'
+import { Button } from '@/shared/ui/button'
+import { Input } from '@/shared/ui/input'
 import { ButtonVariants } from '@/shared/types'
 import { default as FormSection } from './FormSection.vue'
+import { PasswordInput } from '@/shared/ui/password-input'
+import { useAuthForm } from '@/features/auth'
+import { storeToRefs } from 'pinia'
 
-const loginForm = reactive({
-  email: '',
-  password: '',
-})
+const authForm = useAuthForm()
+const { r$ } = storeToRefs(authForm)
+
+async function submit() {
+  const { valid, data } = await r$.value.$validate()
+  if (valid) {
+    console.log(data)
+  }
+}
 </script>
 
 <template>
-  <FormSection>
-    <Input v-model="loginForm.email" label="Електронна пошта" placeholder="email@gmail.com" />
-    <PasswordInput v-model="loginForm.password" placeholder="*************" label="Пароль" />
-    <Button type="submit" :variant="ButtonVariants.Gradient" class="font-bold mt-auto"
-      >Увійти</Button
-    >
-  </FormSection>
-</template>
+  <form-section>
+    <Input
+      v-model="r$.$fields.login.$fields.email.$value"
+      :field="r$.$fields.login.$fields.email"
+      label="Email"
+      placeholder="email@example.com"
+      type="email"
+      :required="r$.$fields.login.$fields.email.$rules.required.$active"
+    />
 
-<style scoped></style>
+    <PasswordInput
+      v-model="r$.$fields.login.$fields.password.$value"
+      :field="r$.$fields.login.$fields.password"
+      label="Password"
+      placeholder="********"
+      type="password"
+      :required="r$.$fields.login.$fields.password.$rules.required.$active"
+    />
+    <Button @click.prevent="submit" :variant="ButtonVariants.Gradient" class="font-bold mt-auto"
+      >Log in</Button
+    >
+  </form-section>
+</template>

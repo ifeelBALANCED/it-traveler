@@ -1,61 +1,76 @@
 <script setup lang="ts">
-import { ref, computed, defineModel, useAttrs, useId } from 'vue'
-import { Input } from '../input'
-import { Icon } from '@/shared/ui'
+import { ref, computed, useId, toRefs, useAttrs } from 'vue'
+import { Input } from '@/shared/ui/input'
+import { Icon } from '@/shared/ui/icon'
+import type {
+  Maybe,
+  RegleEnforceCustomRequiredRules,
+  RegleFieldStatus,
+  InferRegleShortcuts,
+} from '@regle/core'
+import { useGlobalRegle } from '@/shared/lib/validations'
+
+type FieldWithStrong = RegleFieldStatus<
+  string | undefined,
+  RegleEnforceCustomRequiredRules<typeof useGlobalRegle, 'strongPassword'>,
+  InferRegleShortcuts<typeof useGlobalRegle>
+>
+type FieldBasic = RegleFieldStatus<
+  string | undefined,
+  never,
+  InferRegleShortcuts<typeof useGlobalRegle>
+>
+
+export type PasswordField = FieldWithStrong | FieldBasic
 
 interface PasswordInputProps {
+  field: PasswordField
   placeholder?: string
   label?: string
   disabled?: boolean
   required?: boolean
-  error?: string
   id?: string
 }
 
-defineOptions({ inheritAttrs: false })
-
 const props = withDefaults(defineProps<PasswordInputProps>(), {
-  placeholder: 'Введіть пароль',
-  label: 'Пароль',
+  placeholder: 'Enter password',
+  label: 'Password',
   disabled: false,
   required: false,
-  error: '',
   id: '',
 })
 
+const { field, placeholder, label, disabled, required, id } = toRefs(props)
 const attrs = useAttrs()
-const password = defineModel<string>({ default: '', required: false })
+
 const showPassword = ref(false)
+const password = defineModel<Maybe<string>>({ required: true })
 const inputType = computed(() => (showPassword.value ? 'text' : 'password'))
-const isInvalid = computed(() => Boolean(props.error))
+const eyeIcon = computed(() => (showPassword.value ? 'eye-hidden' : 'eye-visible'))
+const toggleVisibility = () => (showPassword.value = !showPassword.value)
 
 const defaultId = useId()
-const inputId = computed(() => props.id || defaultId)
+const inputId = computed(() => id.value || defaultId)
 
-const inputBind = computed(() => ({
-  ...attrs,
-  type: inputType.value,
-  placeholder: props.placeholder,
-  disabled: props.disabled,
-  required: props.required,
+const inputAttrs = computed(() => ({
   id: inputId.value,
-  'aria-invalid': isInvalid.value ?? undefined,
+  type: inputType.value,
+  placeholder: placeholder.value,
+  disabled: disabled.value,
+  required: required.value,
+  ...attrs,
 }))
-
-function toggleVisibility() {
-  showPassword.value = !showPassword.value
-}
-
-const eyeIcon = computed(() => (showPassword.value ? 'eye-hidden' : 'eye-visible'))
 </script>
 
 <template>
   <div class="w-full">
     <Input
+      :field="field"
       v-model="password"
-      v-bind="inputBind"
-      :label="props.label"
+      v-bind="inputAttrs"
+      :label="label"
       :icon="Icon"
+      :type="inputType"
       icon-position="right"
       :icon-component-props="{
         name: eyeIcon,
@@ -67,23 +82,5 @@ const eyeIcon = computed(() => (showPassword.value ? 'eye-hidden' : 'eye-visible
         <Icon :name="eyeIcon" class="h-5 w-5 text-gray-400 hover:text-gray-600" />
       </template>
     </Input>
-
-    <p v-if="props.error" class="mt-1 text-sm text-red-500">
-      {{ props.error }}
-    </p>
   </div>
 </template>
-
-<style scoped>
-input[data-has-error='true'] {
-  border-color: #f56565;
-}
-input[data-has-error='true']:focus {
-  border-color: #f56565;
-}
-input[data-disabled='true'] {
-  background-color: #f7fafc;
-  cursor: not-allowed;
-  opacity: 0.75;
-}
-</style>

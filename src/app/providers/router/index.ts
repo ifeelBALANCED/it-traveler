@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import { HomeLayout, BaseLayout } from '@/shared/ui'
+import { HomeLayout, BaseLayout } from '@/shared/ui/layouts'
 import { ROUTES } from '@/shared/types'
 
 const GreetingPage = () => import('@/pages/greeting').then(({ GreetingPage }) => GreetingPage)

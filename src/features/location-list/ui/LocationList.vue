@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import LocationCard from './LocationCard.vue'
-import { Typography } from '@/shared/ui'
+import { default as LocationCard } from './LocationCard.vue'
+import { Typography } from '@/shared/ui/typography'
 
 const locations = ref([
   {
@@ -41,9 +41,9 @@ const handleDelete = (id: number) => {
 
 <template>
   <section class="flex flex-col mx-6 gap-y-4.5">
-    <typography variant="subtitle-2" class="text-[color:var(--color-action)]">
+    <Typography variant="subtitle-2" class="text-[color:var(--color-action)]">
       Додані маркери
-    </typography>
+    </Typography>
     <ul class="space-y-3 divide-y divide-[#2C2C2C1A]">
       <li v-for="location in locations" :key="location.id">
         <location-card :location="location" @edit="handleEdit" @delete="handleDelete" />

@@ -20,10 +20,15 @@
     "node": ">=22.0.0 <23.0.0"
   },
   "dependencies": {
+    "@regle/core": "^1.1.4",
+    "@regle/rules": "^1.1.4",
+    "@regle/schemas": "^1.1.4",
     "@unhead/vue": "^2.0.8",
+    "check-password-strength": "^3.0.0",
     "class-variance-authority": "^0.7.1",
     "classnames": "^2.5.1",
     "pinia": "^3.0.2",
+    "valibot": "^1.1.0",
     "vue": "^3.5.13",
     "vue-router": "^4.5.1"
   },

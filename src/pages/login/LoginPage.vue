@@ -3,7 +3,7 @@ import { LoginForm } from '@/features/auth'
 </script>
 
 <template>
-  <LoginForm />
+  <login-form />
 </template>
 
 <style scoped></style>

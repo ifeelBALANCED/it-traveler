@@ -1,22 +1,34 @@
 <script setup lang="ts">
-import { computed, defineModel, useAttrs, useId } from 'vue'
-import type { Component } from 'vue'
+import { computed, toRefs, useAttrs, useId } from 'vue'
+import type { Component, InputTypeHTMLAttribute } from 'vue'
+import type { InferRegleShortcuts, Maybe, RegleFieldStatus } from '@regle/core'
+import { useGlobalRegle } from '@/shared/lib/validations'
+import { FieldError } from '../field-error'
+import type { PasswordField } from '../password-input/PasswordInput.vue'
+
+type FieldShortcuts = InferRegleShortcuts<typeof useGlobalRegle>
+type InputField = RegleFieldStatus<string | undefined, never, FieldShortcuts>
 
 interface InputProps {
-  type?: string
-  placeholder?: string
+  field?: InputField | PasswordField
   label?: string
+  placeholder?: string
+  type?: InputTypeHTMLAttribute
   disabled?: boolean
   required?: boolean
-  error?: string
   id?: string
-  class?: string
+  extraClass?: string
   icon?: Component
   iconPosition?: 'left' | 'right'
   iconComponentProps?: Record<string, unknown>
 }
 
 defineOptions({ inheritAttrs: false })
+defineEmits<{
+  (e: 'focus', event: FocusEvent): void
+  (e: 'blur', event: FocusEvent): void
+  (e: 'icon-click', event: MouseEvent): void
+}>()
 
 const props = withDefaults(defineProps<InputProps>(), {
   type: 'text',
@@ -24,72 +36,78 @@ const props = withDefaults(defineProps<InputProps>(), {
   label: '',
   disabled: false,
   required: false,
-  error: '',
   id: '',
-  class: '',
+  extraClass: '',
   icon: undefined,
   iconPosition: 'right',
   iconComponentProps: () => ({}),
 })
 
+const {
+  field,
+  label,
+  placeholder,
+  type,
+  disabled,
+  required,
+  id,
+  extraClass,
+  icon,
+  iconPosition,
+  iconComponentProps,
+} = toRefs(props)
 const attrs = useAttrs()
-const emit = defineEmits<{
-  (e: 'focus', event: FocusEvent): void
-  (e: 'blur', event: FocusEvent): void
-  (e: 'icon-click', event: MouseEvent): void
-}>()
-const model = defineModel<string>({ default: '', required: false })
+
+const inputModel = defineModel<Maybe<string | number>>({ required: true })
 
 const defaultId = useId()
-const inputId = computed(() => props.id || defaultId)
-const hasIcon = computed(() => Boolean(props.icon))
-const inputBind = computed(() => ({
-  ...attrs,
-  type: props.type,
-  placeholder: props.placeholder,
-  disabled: props.disabled,
-  required: props.required,
-  id: inputId.value,
-  'data-has-error': Boolean(props.error),
-  'data-disabled': props.disabled,
-}))
+const inputId = computed(() => id.value || defaultId)
 
-const inputClasses = computed(() =>
+const baseClasses = computed(() =>
   [
-    'w-full text-sm leading-5 tracking-wide text-[#2C2C2C] rounded-sm border-[#2C2C2C1A] border py-3.5 px-4.5 focus:outline-none focus:border-[#F3743D]',
-    props.class,
-    hasIcon.value && props.iconPosition === 'left' ? 'pl-10' : '',
-    hasIcon.value && props.iconPosition === 'right' ? 'pr-10' : '',
+    'w-full text-sm leading-5 tracking-wide text-[#2C2C2C] rounded-sm border py-3.5 px-4.5 focus:outline-none',
+    extraClass.value,
   ]
     .filter(Boolean)
     .join(' '),
 )
 
-const handleIconClick = (event: MouseEvent) => {
-  emit('icon-click', event)
-}
+const hasIcon = computed(() => Boolean(icon.value))
+
+const inputAttrs = computed(() => ({
+  id: inputId.value,
+  type: type.value,
+  placeholder: placeholder.value,
+  disabled: disabled.value,
+  required: required.value,
+  ...attrs,
+}))
 </script>
 
 <template>
   <div class="flex flex-col w-full">
-    <label
-      v-if="props.label"
-      :for="inputId"
-      class="mb-1 text-xs text-[#2C2C2C] font-normal tracking-wide"
-    >
-      {{ props.label }}
-      <span v-if="props.required" class="text-red-500 ml-1">*</span>
+    <label v-if="label" :for="inputId" class="mb-1 text-xs text-gray-700 font-normal tracking-wide">
+      {{ label }}<span v-if="required" class="text-red-500 ml-1">*</span>
     </label>
 
     <div class="relative w-full">
       <input
-        v-bind="inputBind"
-        v-model="model"
-        :aria-invalid="Boolean(props.error)"
-        :aria-describedby="props.error ? `${inputId}-error` : undefined"
-        @focus="emit('focus', $event)"
-        @blur="emit('blur', $event)"
-        :class="inputClasses"
+        v-model="inputModel"
+        v-bind="inputAttrs"
+        :class="[
+          baseClasses,
+          {
+            'border-[#2C2C2C1A] focus:border-[#F3743D]': !field?.$error,
+            'border-orange-300 focus:border-orange-300': field?.$pending,
+            'border-red-400 focus:border-red-400': field?.$error,
+            'pl-10': hasIcon && iconPosition === 'left',
+            'pr-10': hasIcon && iconPosition === 'right',
+          },
+        ]"
+        @focus="$emit('focus', $event)"
+        @blur="$emit('blur', $event)"
+        :aria-invalid="Boolean(field?.$errors.length)"
+        :aria-describedby="field?.$errors.length ? `${inputId}-error` : undefined"
       />
 
       <div
@@ -103,7 +121,7 @@ const handleIconClick = (event: MouseEvent) => {
         <button
           type="button"
           class="flex items-center justify-center h-full px-2 text-gray-400 hover:text-gray-600 focus:outline-none"
-          @click.stop="handleIconClick"
+          @click.stop="$emit('icon-click', $event)"
         >
           <slot name="icon">
             <component :is="icon" v-bind="iconComponentProps" class="h-5 w-5" />
@@ -111,23 +129,6 @@ const handleIconClick = (event: MouseEvent) => {
         </button>
       </div>
     </div>
-
-    <p v-if="props.error" :id="`${inputId}-error`" class="mt-1 text-sm text-red-500">
-      {{ props.error }}
-    </p>
+    <FieldError :errors="field?.$errors ?? []" :id="`${inputId}-error`" class="mt-1" />
   </div>
 </template>
-
-<style scoped>
-input[data-has-error='true'] {
-  border-color: #f56565;
-}
-input[data-has-error='true']:focus {
-  border-color: #f56565;
-}
-input[data-disabled='true'] {
-  background-color: #f7fafc;
-  cursor: not-allowed;
-  opacity: 0.75;
-}
-</style>

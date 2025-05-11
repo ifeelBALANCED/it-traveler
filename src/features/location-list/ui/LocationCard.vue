@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { Icon, Typography } from '@/shared/ui'
+import { Icon } from '@/shared/ui/icon'
+import { Typography } from '@/shared/ui/typography'
 const { location } = defineProps<{
   location: {
     id: number

@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { Icon, Button } from '@/shared/ui'
+import { Button } from '@/shared/ui/button'
+import { Icon } from '@/shared/ui/icon'
 import { RouterLink } from 'vue-router'
 import { ButtonVariants, ROUTES } from '@/shared/types'
 </script>

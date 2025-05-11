@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { RouterLink } from 'vue-router'
-import { Button } from '@/shared/ui'
+import { Button } from '@/shared/ui/button'
 import { ButtonVariants } from '@/shared/types'
 
 const errorCode = computed(() => '404')
