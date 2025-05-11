@@ -1,7 +1,7 @@
 :root {
-    --color-primary: #f3743d;
-    --color-action: #2c2c2c66;
-    --color-primary-light: #FFA279;
-    --color-action-edit: var(--color-primary);
-    --color-action-delete: #dc2626;
+  --color-primary: #f3743d;
+  --color-action: #2c2c2c66;
+  --color-primary-light: #ffa279;
+  --color-action-edit: var(--color-primary);
+  --color-action-delete: #dc2626;
 }

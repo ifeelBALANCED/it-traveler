@@ -18,7 +18,7 @@
 
   .button-gradient {
     @apply text-white;
-    background-image: linear-gradient(to right, #FFA279, #F3743D);
+    background-image: linear-gradient(to right, #ffa279, #f3743d);
   }
 
   .action-edit {
