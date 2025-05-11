@@ -2,7 +2,6 @@
 import { type Component, toRefs } from 'vue'
 import { cva } from 'class-variance-authority'
 import { type ButtonVariant, ButtonVariants } from '@/shared/types'
-import LoaderIcon from '@/app/icons/loader.svg'
 
 interface ButtonProps {
   as?: keyof HTMLElementTagNameMap | Component
@@ -109,10 +108,7 @@ const handleClick = (event: MouseEvent) => {
     :aria-disabled="disabled || loading"
     @click="handleClick"
   >
-    <template v-if="loading">
-      <img :src="LoaderIcon" alt="Loading" class="w-5 h-5 animate-spin mr-2" aria-hidden="true" />
-    </template>
-    <template v-else-if="icon && iconPosition === 'left'">
+    <template v-if="icon && iconPosition === 'left'">
       <component :is="icon" class="mr-2" aria-hidden="true" />
       <slot />
     </template>

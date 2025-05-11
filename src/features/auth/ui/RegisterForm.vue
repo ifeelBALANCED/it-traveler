@@ -54,7 +54,13 @@ async function submit() {
       :required="r$.$fields.register.$fields.confirmPassword.$rules.required.$active"
     />
 
-    <Button @click.prevent="submit" :variant="ButtonVariants.Gradient" class="font-bold mt-auto">
+    <Button
+      :disabled="r$.$fields.register.$invalid || r$.$fields.register.$pending"
+      :loading="r$.$fields.register.$pending"
+      @click.prevent="submit"
+      :variant="ButtonVariants.Gradient"
+      class="font-bold mt-auto"
+    >
       Створити акаунт
     </Button>
   </FormSection>

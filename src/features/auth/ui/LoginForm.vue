@@ -37,7 +37,12 @@ async function submit() {
       type="password"
       :required="r$.$fields.login.$fields.password.$rules.required.$active"
     />
-    <Button @click.prevent="submit" :variant="ButtonVariants.Gradient" class="font-bold mt-auto"
+    <Button
+      @click.prevent="submit"
+      :disabled="r$.$fields.login.$invalid || r$.$fields.login.$pending"
+      :loading="r$.$fields.login.$pending"
+      :variant="ButtonVariants.Gradient"
+      class="font-bold mt-auto"
       >Log in</Button
     >
   </form-section>
