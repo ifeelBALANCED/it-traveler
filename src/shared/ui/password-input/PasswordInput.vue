@@ -1,86 +1,88 @@
 <script setup lang="ts">
-import { ref, computed, useId, toRefs, useAttrs } from 'vue'
-import { Input } from '@/shared/ui/input'
+import { ref, computed, toRefs } from 'vue'
+import { useField } from 'vee-validate'
+import { Input } from '../input'
 import { Icon } from '@/shared/ui/icon'
-import type {
-  Maybe,
-  RegleEnforceCustomRequiredRules,
-  RegleFieldStatus,
-  InferRegleShortcuts,
-} from '@regle/core'
-import { useGlobalRegle } from '@/shared/lib/validations'
-
-type FieldWithStrong = RegleFieldStatus<
-  string | undefined,
-  RegleEnforceCustomRequiredRules<typeof useGlobalRegle, 'strongPassword'>,
-  InferRegleShortcuts<typeof useGlobalRegle>
->
-type FieldBasic = RegleFieldStatus<
-  string | undefined,
-  never,
-  InferRegleShortcuts<typeof useGlobalRegle>
->
-
-export type PasswordField = FieldWithStrong | FieldBasic
 
 interface PasswordInputProps {
-  field: PasswordField
-  placeholder?: string
+  name: string
   label?: string
+  placeholder?: string
   disabled?: boolean
   required?: boolean
   id?: string
+  extraClass?: string
 }
 
 const props = withDefaults(defineProps<PasswordInputProps>(), {
-  placeholder: 'Enter password',
-  label: 'Password',
+  label: '',
+  placeholder: '',
   disabled: false,
   required: false,
   id: '',
+  extraClass: '',
 })
 
-const { field, placeholder, label, disabled, required, id } = toRefs(props)
-const attrs = useAttrs()
+defineOptions({ inheritAttrs: false })
 
-const showPassword = ref(false)
-const password = defineModel<Maybe<string>>({ required: true })
-const inputType = computed(() => (showPassword.value ? 'text' : 'password'))
-const eyeIcon = computed(() => (showPassword.value ? 'eye-hidden' : 'eye-visible'))
-const toggleVisibility = () => (showPassword.value = !showPassword.value)
+const passwordModel = defineModel<string>({
+  default: '',
+  required: false,
+})
 
-const defaultId = useId()
-const inputId = computed(() => id.value || defaultId)
+const emit = defineEmits<{
+  (e: 'focus', ev: FocusEvent): void
+  (e: 'blur', ev: FocusEvent): void
+}>()
 
-const inputAttrs = computed(() => ({
-  id: inputId.value,
-  type: inputType.value,
-  placeholder: placeholder.value,
-  disabled: disabled.value,
-  required: required.value,
-  ...attrs,
-}))
+const { name, label, placeholder, disabled, required, id } = toRefs(props)
+
+const {
+  value: fieldValue,
+  errorMessage,
+  handleBlur,
+} = useField(name.value, undefined, { initialValue: passwordModel.value })
+
+const show = ref(false)
+const inputType = computed(() => (show.value ? 'text' : 'password'))
+const eyeIcon = computed(() => (show.value ? 'eye-hidden' : 'eye-visible'))
+const toggleEye = () => (show.value = !show.value)
+
+const inputId = computed(() => id.value || name.value)
+
+function onBlur(e: FocusEvent) {
+  handleBlur(e)
+  emit('blur', e)
+}
 </script>
 
 <template>
-  <div class="w-full">
-    <Input
-      :field="field"
-      v-model="password"
-      v-bind="inputAttrs"
-      :label="label"
-      :icon="Icon"
-      :type="inputType"
-      icon-position="right"
-      :icon-component-props="{
-        name: eyeIcon,
-        class: 'h-5 w-5 text-gray-400 hover:text-gray-600',
-      }"
-      @icon-click="toggleVisibility"
-    >
-      <template #icon>
-        <Icon :name="eyeIcon" class="h-5 w-5 text-gray-400 hover:text-gray-600" />
-      </template>
-    </Input>
-  </div>
+  <Input
+    v-model="fieldValue"
+    :name="name"
+    :id="inputId"
+    :label="label"
+    :placeholder="placeholder"
+    :type="inputType"
+    :disabled="disabled"
+    :required="required"
+    :icon="Icon"
+    icon-position="right"
+    :icon-component-props="{
+      name: eyeIcon,
+      class: 'h-5 w-5 text-gray-400 hover:text-gray-600 cursor-pointer',
+    }"
+    @focus="emit('focus', $event)"
+    @blur="onBlur"
+    @icon-click="toggleEye"
+    v-bind="$attrs"
+  >
+    <template #icon>
+      <Icon :name="eyeIcon" class="h-5 w-5 text-gray-400 hover:text-gray-600 cursor-pointer" />
+    </template>
+  </Input>
+
+  <p v-if="errorMessage" :id="`${inputId}-error`" class="mt-1 text-sm text-red-500">
+    {{ errorMessage }}
+  </p>
 </template>

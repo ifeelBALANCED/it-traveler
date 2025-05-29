@@ -6,7 +6,7 @@ import { Button } from '@/shared/ui/button'
 
 <template>
   <section class="mx-auto max-w-lg w-full bg-white rounded-lg p-10 flex flex-col items-center">
-    <nav class="flex space-x-11 mb-8" aria-label="Auth pages">
+    <nav class="flex space-x-11 mb-8">
       <Button
         :as="RouterLink"
         :to="ROUTES.REGISTER"

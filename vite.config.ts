@@ -20,6 +20,9 @@ export default defineConfig({
       customDomId: '__svg__icons__dom__',
     }),
   ],
+  optimizeDeps: {
+    include: ['leaflet'],
+  },
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url)),

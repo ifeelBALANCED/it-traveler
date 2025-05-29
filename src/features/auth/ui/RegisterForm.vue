@@ -2,64 +2,75 @@
 import { Input } from '@/shared/ui/input'
 import { Button } from '@/shared/ui/button'
 import { ButtonVariants } from '@/shared/types'
-import { default as FormSection } from './FormSection.vue'
+import FormSection from './FormSection.vue'
 import { PasswordInput } from '@/shared/ui/password-input'
 import { useAuthForm } from '@/features/auth'
-import { storeToRefs } from 'pinia'
 
-const authForm = useAuthForm()
-const { r$ } = storeToRefs(authForm)
+const {
+  registerForm,
+  registerValues,
+  registerErrors,
+  registerUsernameAttrs,
+  registerEmailAttrs,
+  registerPasswordAttrs,
+  registerConfirmPasswordAttrs,
+  handleRegister,
+} = useAuthForm()
 
-async function submit() {
-  const { valid, data } = await r$.value.$validate()
-  if (valid) {
-    console.log(data)
-  }
-}
+const submit = handleRegister((values) => {
+  console.log('Register payload:', values)
+})
 </script>
 
 <template>
   <FormSection>
     <Input
-      v-model="r$.$fields.register.$fields.username.$value"
-      :field="r$.$fields.register.$fields.username"
+      name="username"
+      v-model="registerValues.username"
+      v-bind="registerUsernameAttrs"
       label="Ім'я користувача"
       placeholder="Введіть ім'я користувача"
-      :required="r$.$fields.register.$fields.username.$rules.required.$active"
+      :error="registerErrors.username"
+      required
     />
 
     <Input
-      v-model="r$.$fields.register.$fields.email.$value"
-      :field="r$.$fields.register.$fields.email"
+      name="email"
+      v-model="registerValues.email"
+      v-bind="registerEmailAttrs"
       label="Електронна пошта"
       placeholder="email@example.com"
       type="email"
-      :required="r$.$fields.register.$fields.email.$rules.required.$active"
+      :error="registerErrors.email"
+      required
     />
 
     <PasswordInput
-      v-model="r$.$fields.register.$fields.password.$value"
-      :field="r$.$fields.register.$fields.password"
+      name="password"
+      v-model="registerValues.password"
+      v-bind="registerPasswordAttrs"
       label="Пароль"
       placeholder="********"
-      type="password"
-      :required="r$.$fields.register.$fields.password.$rules.required.$active"
+      :error="registerErrors.password"
+      required
     />
 
     <PasswordInput
-      v-model="r$.$fields.register.$fields.confirmPassword.$value"
-      :field="r$.$fields.register.$fields.confirmPassword"
+      name="confirmPassword"
+      v-model="registerValues.confirmPassword"
+      v-bind="registerConfirmPasswordAttrs"
       label="Підтвердження пароля"
       placeholder="********"
-      :required="r$.$fields.register.$fields.confirmPassword.$rules.required.$active"
+      :error="registerErrors.confirmPassword"
+      required
     />
 
     <Button
-      :disabled="r$.$fields.register.$invalid || r$.$fields.register.$pending"
-      :loading="r$.$fields.register.$pending"
-      @click.prevent="submit"
-      :variant="ButtonVariants.Gradient"
       class="font-bold mt-auto"
+      :variant="ButtonVariants.Gradient"
+      :disabled="!registerForm.meta.value.valid || registerForm.meta.value.pending"
+      :loading="registerForm.meta.value.pending"
+      @click.prevent="submit"
     >
       Створити акаунт
     </Button>

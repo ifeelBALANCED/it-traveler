@@ -1,63 +1,68 @@
 <script setup lang="ts">
-import { computed, defineProps, defineEmits, defineModel, toRefs, useAttrs, useId } from 'vue'
-import type { InferRegleShortcuts, RegleFieldStatus, Maybe } from '@regle/core'
-import { useGlobalRegle } from '@/shared/lib/validations'
-import { FieldError } from '../field-error'
+import { computed, toRefs } from 'vue'
+import { useField } from 'vee-validate'
 
-type FieldShortcuts = InferRegleShortcuts<typeof useGlobalRegle>
-
-interface TextareaProps {
-  field?: RegleFieldStatus<string | undefined, never, FieldShortcuts>
-  label?: string
-  placeholder?: string
-  disabled?: boolean
-  required?: boolean
-  id?: string
-  rows?: number
-  extraClass?: string
-}
-
-defineOptions({ inheritAttrs: false })
-
-const props = withDefaults(defineProps<TextareaProps>(), {
-  field: undefined,
-  label: '',
-  placeholder: '',
-  disabled: false,
-  required: false,
-  id: '',
-  rows: 3,
-  extraClass: '',
-})
-
-defineEmits<{
-  (e: 'focus', event: FocusEvent): void
-  (e: 'blur', event: FocusEvent): void
-}>()
-
-const { field, label, placeholder, disabled, required, id, rows, extraClass } = toRefs(props)
-const attrs = useAttrs()
-const textareaModel = defineModel<Maybe<string>>({ required: true, default: '' })
-const defaultId = useId()
-const inputId = computed(() => id.value || defaultId)
-
-const baseClasses = computed(() =>
-  [
-    'mt-1 block w-full resize-none rounded-md border py-2 px-3 text-sm shadow-sm focus:outline-none',
-    extraClass.value,
-  ]
-    .filter(Boolean)
-    .join(' '),
+const props = withDefaults(
+  defineProps<{
+    name: string
+    label?: string
+    placeholder?: string
+    disabled?: boolean
+    required?: boolean
+    id?: string
+    rows?: number
+    extraClass?: string
+    rules?: string | object
+  }>(),
+  {
+    label: '',
+    placeholder: '',
+    disabled: false,
+    required: false,
+    id: '',
+    rows: 3,
+    extraClass: '',
+    rules: undefined,
+  },
 )
 
-const textareaAttrs = computed(() => ({
-  id: inputId.value,
-  placeholder: placeholder.value,
-  disabled: disabled.value,
-  required: required.value,
-  rows: rows.value,
-  ...attrs,
-}))
+const textareaModel = defineModel<string>({
+  default: '',
+  required: false,
+})
+
+defineOptions({ inheritAttrs: false })
+const emit = defineEmits<{
+  (e: 'focus', ev: FocusEvent): void
+  (e: 'blur', ev: FocusEvent): void
+}>()
+
+const { name, label, placeholder, disabled, required, id, rows, extraClass } = toRefs(props)
+
+const {
+  value: fieldValue,
+  errorMessage,
+  meta,
+  handleBlur,
+} = useField(name.value, undefined, {
+  initialValue: textareaModel.value,
+})
+
+const inputId = computed(() => id.value || name.value)
+
+const baseClasses =
+  'mt-1 block w-full resize-none rounded-md border py-2 px-3 text-sm shadow-sm focus:outline-none'
+
+const stateClasses = computed(() => {
+  if (meta.pending) return 'border-orange-300 focus:border-orange-300'
+  if (!meta.valid) return 'border-red-400 focus:border-red-400'
+  return 'border-[#2C2C2C1A] focus:border-[#F3743D]'
+})
+
+function onBlur(e: FocusEvent) {
+  handleBlur(e)
+  emit('blur', e)
+}
 </script>
 
 <template>
@@ -67,28 +72,29 @@ const textareaAttrs = computed(() => ({
     </label>
 
     <textarea
-      v-model="textareaModel"
-      v-bind="textareaAttrs"
-      :class="[
-        baseClasses,
-        {
-          'border-[#2C2C2C1A] focus:border-[#F3743D]': !field?.$error,
-          'border-orange-300 focus:border-orange-300': field?.$pending,
-          'border-red-400 focus:border-red-400': field?.$error,
-        },
-      ]"
-      @focus="$emit('focus', $event)"
-      @blur="$emit('blur', $event)"
-      :aria-invalid="field?.$error"
-      :aria-describedby="field?.$error ? `${inputId}-error` : undefined"
-    ></textarea>
+      v-model="fieldValue"
+      :id="inputId"
+      :name="name"
+      :placeholder="placeholder"
+      :disabled="disabled"
+      :required="required"
+      :rows="rows"
+      :aria-invalid="!meta.valid"
+      :aria-describedby="!meta.valid ? `${inputId}-error` : undefined"
+      :class="[baseClasses, stateClasses, extraClass]"
+      @focus="emit('focus', $event)"
+      @blur="onBlur"
+      v-bind="$attrs"
+    />
 
-    <FieldError :errors="field?.$errors" :id="`${inputId}-error`" class="mt-1" />
+    <p v-if="errorMessage" :id="`${inputId}-error`" class="mt-1 text-sm text-red-500">
+      {{ errorMessage }}
+    </p>
   </div>
 </template>
 
 <style scoped>
-textarea[data-disabled='true'] {
+textarea[disabled] {
   background-color: #f7fafc;
   cursor: not-allowed;
   opacity: 0.75;

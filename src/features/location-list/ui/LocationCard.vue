@@ -1,22 +1,25 @@
 <script setup lang="ts">
 import { Icon } from '@/shared/ui/icon'
 import { Typography } from '@/shared/ui/typography'
-const { location } = defineProps<{
-  location: {
-    id: number
-    name: string
-    description: string
-    image: string
-  }
+import { toRef } from 'vue'
+
+interface LocationCardProps {
+  id: number
+  name: string
+  description: string
+  image: string
+}
+
+const props = defineProps<{
+  location: LocationCardProps
 }>()
 
-const emit = defineEmits<{
+const location = toRef(props, 'location')
+
+defineEmits<{
   (e: 'edit', id: number): void
   (e: 'delete', id: number): void
 }>()
-
-const handleEdit = () => emit('edit', location.id)
-const handleDelete = () => emit('delete', location.id)
 </script>
 
 <template>
@@ -32,14 +35,14 @@ const handleDelete = () => emit('delete', location.id)
         <Typography variant="subtitle-2" class="text-[#2C2C2C]">{{ location.name }}</Typography>
         <div class="flex justify-center gap-2">
           <button
-            @click="handleEdit"
+            @click="$emit('edit', location.id)"
             title="Edit"
             class="flex items-center justify-center h-6 w-6 hover:bg-gray-100 rounded-full action-edit"
           >
             <Icon name="edit-action" />
           </button>
           <button
-            @click="handleDelete"
+            @click="$emit('delete', location.id)"
             title="Delete"
             class="flex items-center justify-center h-6 w-6 hover:bg-gray-100 rounded-full action-delete"
           >
