@@ -25,44 +25,6 @@ export type PostApiAuthRegisterBodyOne = {
   confirmPassword: string
 }
 
-export type PostApiAuthRegisterBodyTwo = {
-  /**
-   * @minLength 2
-   * @maxLength 50
-   */
-  name: string
-  email: string
-  /**
-   * @minLength 6
-   * @maxLength 100
-   */
-  password: string
-  /**
-   * @minLength 6
-   * @maxLength 100
-   */
-  confirmPassword: string
-}
-
-export type PostApiAuthRegisterBodyThree = {
-  /**
-   * @minLength 2
-   * @maxLength 50
-   */
-  name: string
-  email: string
-  /**
-   * @minLength 6
-   * @maxLength 100
-   */
-  password: string
-  /**
-   * @minLength 6
-   * @maxLength 100
-   */
-  confirmPassword: string
-}
-
 export type PostApiAuthRegister201OneDataUserAvatar = string | null
 
 export type PostApiAuthRegister201OneDataUserCreatedAt = unknown | string | string | number
@@ -88,84 +50,12 @@ export type PostApiAuthRegister201One = {
   data: PostApiAuthRegister201OneData
 }
 
-export type PostApiAuthRegister201TwoDataUserAvatar = string | null
-
-export type PostApiAuthRegister201TwoDataUserCreatedAt = unknown | string | string | number
-
-export type PostApiAuthRegister201TwoDataUserUpdatedAt = unknown | string | string | number
-
-export type PostApiAuthRegister201TwoDataUser = {
-  id: string
-  name: string
-  email: string
-  avatar: PostApiAuthRegister201TwoDataUserAvatar
-  createdAt: PostApiAuthRegister201TwoDataUserCreatedAt
-  updatedAt: PostApiAuthRegister201TwoDataUserUpdatedAt
-}
-
-export type PostApiAuthRegister201TwoData = {
-  user: PostApiAuthRegister201TwoDataUser
-  token: string
-}
-
-export type PostApiAuthRegister201Two = {
-  success: boolean
-  data: PostApiAuthRegister201TwoData
-}
-
-export type PostApiAuthRegister201ThreeDataUserAvatar = string | null
-
-export type PostApiAuthRegister201ThreeDataUserCreatedAt = unknown | string | string | number
-
-export type PostApiAuthRegister201ThreeDataUserUpdatedAt = unknown | string | string | number
-
-export type PostApiAuthRegister201ThreeDataUser = {
-  id: string
-  name: string
-  email: string
-  avatar: PostApiAuthRegister201ThreeDataUserAvatar
-  createdAt: PostApiAuthRegister201ThreeDataUserCreatedAt
-  updatedAt: PostApiAuthRegister201ThreeDataUserUpdatedAt
-}
-
-export type PostApiAuthRegister201ThreeData = {
-  user: PostApiAuthRegister201ThreeDataUser
-  token: string
-}
-
-export type PostApiAuthRegister201Three = {
-  success: boolean
-  data: PostApiAuthRegister201ThreeData
-}
-
 export type PostApiAuthRegister400One = {
   success: boolean
   message: string
 }
 
-export type PostApiAuthRegister400Two = {
-  success: boolean
-  message: string
-}
-
-export type PostApiAuthRegister400Three = {
-  success: boolean
-  message: string
-}
-
 export type PostApiAuthLoginBodyOne = {
-  email: string
-  /** @minLength 1 */
-  password: string
-}
-
-export type PostApiAuthLoginBodyTwo = {
-  email: string
-  /** @minLength 1 */
-  password: string
-}
-
-export type PostApiAuthLoginBodyThree = {
   email: string
   /** @minLength 1 */
   password: string
@@ -196,82 +86,12 @@ export type PostApiAuthLogin200One = {
   data: PostApiAuthLogin200OneData
 }
 
-export type PostApiAuthLogin200TwoDataUserAvatar = string | null
-
-export type PostApiAuthLogin200TwoDataUserCreatedAt = unknown | string | string | number
-
-export type PostApiAuthLogin200TwoDataUserUpdatedAt = unknown | string | string | number
-
-export type PostApiAuthLogin200TwoDataUser = {
-  id: string
-  name: string
-  email: string
-  avatar: PostApiAuthLogin200TwoDataUserAvatar
-  createdAt: PostApiAuthLogin200TwoDataUserCreatedAt
-  updatedAt: PostApiAuthLogin200TwoDataUserUpdatedAt
-}
-
-export type PostApiAuthLogin200TwoData = {
-  user: PostApiAuthLogin200TwoDataUser
-  token: string
-}
-
-export type PostApiAuthLogin200Two = {
-  success: boolean
-  data: PostApiAuthLogin200TwoData
-}
-
-export type PostApiAuthLogin200ThreeDataUserAvatar = string | null
-
-export type PostApiAuthLogin200ThreeDataUserCreatedAt = unknown | string | string | number
-
-export type PostApiAuthLogin200ThreeDataUserUpdatedAt = unknown | string | string | number
-
-export type PostApiAuthLogin200ThreeDataUser = {
-  id: string
-  name: string
-  email: string
-  avatar: PostApiAuthLogin200ThreeDataUserAvatar
-  createdAt: PostApiAuthLogin200ThreeDataUserCreatedAt
-  updatedAt: PostApiAuthLogin200ThreeDataUserUpdatedAt
-}
-
-export type PostApiAuthLogin200ThreeData = {
-  user: PostApiAuthLogin200ThreeDataUser
-  token: string
-}
-
-export type PostApiAuthLogin200Three = {
-  success: boolean
-  data: PostApiAuthLogin200ThreeData
-}
-
 export type PostApiAuthLogin401One = {
   success: boolean
   message: string
 }
 
-export type PostApiAuthLogin401Two = {
-  success: boolean
-  message: string
-}
-
-export type PostApiAuthLogin401Three = {
-  success: boolean
-  message: string
-}
-
 export type PostApiAuthLogout200One = {
-  success: boolean
-  message: string
-}
-
-export type PostApiAuthLogout200Two = {
-  success: boolean
-  message: string
-}
-
-export type PostApiAuthLogout200Three = {
   success: boolean
   message: string
 }
@@ -296,57 +116,7 @@ export type GetApiAuthMe200One = {
   data: GetApiAuthMe200OneData
 }
 
-export type GetApiAuthMe200TwoDataAvatar = string | null
-
-export type GetApiAuthMe200TwoDataCreatedAt = unknown | string | string | number
-
-export type GetApiAuthMe200TwoDataUpdatedAt = unknown | string | string | number
-
-export type GetApiAuthMe200TwoData = {
-  id: string
-  name: string
-  email: string
-  avatar: GetApiAuthMe200TwoDataAvatar
-  createdAt: GetApiAuthMe200TwoDataCreatedAt
-  updatedAt: GetApiAuthMe200TwoDataUpdatedAt
-}
-
-export type GetApiAuthMe200Two = {
-  success: boolean
-  data: GetApiAuthMe200TwoData
-}
-
-export type GetApiAuthMe200ThreeDataAvatar = string | null
-
-export type GetApiAuthMe200ThreeDataCreatedAt = unknown | string | string | number
-
-export type GetApiAuthMe200ThreeDataUpdatedAt = unknown | string | string | number
-
-export type GetApiAuthMe200ThreeData = {
-  id: string
-  name: string
-  email: string
-  avatar: GetApiAuthMe200ThreeDataAvatar
-  createdAt: GetApiAuthMe200ThreeDataCreatedAt
-  updatedAt: GetApiAuthMe200ThreeDataUpdatedAt
-}
-
-export type GetApiAuthMe200Three = {
-  success: boolean
-  data: GetApiAuthMe200ThreeData
-}
-
 export type GetApiAuthMe404One = {
-  success: boolean
-  message: string
-}
-
-export type GetApiAuthMe404Two = {
-  success: boolean
-  message: string
-}
-
-export type GetApiAuthMe404Three = {
   success: boolean
   message: string
 }
@@ -380,54 +150,6 @@ export type GetApiUsers200One = {
   totalPages: number
 }
 
-export type GetApiUsers200TwoDataItemAvatar = string | null
-
-export type GetApiUsers200TwoDataItemCreatedAt = unknown | string | string | number
-
-export type GetApiUsers200TwoDataItemUpdatedAt = unknown | string | string | number
-
-export type GetApiUsers200TwoDataItem = {
-  id: string
-  name: string
-  email: string
-  avatar: GetApiUsers200TwoDataItemAvatar
-  createdAt: GetApiUsers200TwoDataItemCreatedAt
-  updatedAt: GetApiUsers200TwoDataItemUpdatedAt
-}
-
-export type GetApiUsers200Two = {
-  success: boolean
-  data: GetApiUsers200TwoDataItem[]
-  total: number
-  page: number
-  limit: number
-  totalPages: number
-}
-
-export type GetApiUsers200ThreeDataItemAvatar = string | null
-
-export type GetApiUsers200ThreeDataItemCreatedAt = unknown | string | string | number
-
-export type GetApiUsers200ThreeDataItemUpdatedAt = unknown | string | string | number
-
-export type GetApiUsers200ThreeDataItem = {
-  id: string
-  name: string
-  email: string
-  avatar: GetApiUsers200ThreeDataItemAvatar
-  createdAt: GetApiUsers200ThreeDataItemCreatedAt
-  updatedAt: GetApiUsers200ThreeDataItemUpdatedAt
-}
-
-export type GetApiUsers200Three = {
-  success: boolean
-  data: GetApiUsers200ThreeDataItem[]
-  total: number
-  page: number
-  limit: number
-  totalPages: number
-}
-
 export type GetApiUsersById200OneDataAvatar = string | null
 
 export type GetApiUsersById200OneDataCreatedAt = unknown | string | string | number
@@ -448,57 +170,7 @@ export type GetApiUsersById200One = {
   data: GetApiUsersById200OneData
 }
 
-export type GetApiUsersById200TwoDataAvatar = string | null
-
-export type GetApiUsersById200TwoDataCreatedAt = unknown | string | string | number
-
-export type GetApiUsersById200TwoDataUpdatedAt = unknown | string | string | number
-
-export type GetApiUsersById200TwoData = {
-  id: string
-  name: string
-  email: string
-  avatar: GetApiUsersById200TwoDataAvatar
-  createdAt: GetApiUsersById200TwoDataCreatedAt
-  updatedAt: GetApiUsersById200TwoDataUpdatedAt
-}
-
-export type GetApiUsersById200Two = {
-  success: boolean
-  data: GetApiUsersById200TwoData
-}
-
-export type GetApiUsersById200ThreeDataAvatar = string | null
-
-export type GetApiUsersById200ThreeDataCreatedAt = unknown | string | string | number
-
-export type GetApiUsersById200ThreeDataUpdatedAt = unknown | string | string | number
-
-export type GetApiUsersById200ThreeData = {
-  id: string
-  name: string
-  email: string
-  avatar: GetApiUsersById200ThreeDataAvatar
-  createdAt: GetApiUsersById200ThreeDataCreatedAt
-  updatedAt: GetApiUsersById200ThreeDataUpdatedAt
-}
-
-export type GetApiUsersById200Three = {
-  success: boolean
-  data: GetApiUsersById200ThreeData
-}
-
 export type GetApiUsersById404One = {
-  success: boolean
-  message: string
-}
-
-export type GetApiUsersById404Two = {
-  success: boolean
-  message: string
-}
-
-export type GetApiUsersById404Three = {
   success: boolean
   message: string
 }
@@ -550,124 +222,12 @@ export type GetApiUsersByIdMarkers200One = {
   totalPages: number
 }
 
-export type GetApiUsersByIdMarkers200TwoDataItemDescription = string | null
-
-export type GetApiUsersByIdMarkers200TwoDataItemAddress = string | null
-
-export type GetApiUsersByIdMarkers200TwoDataItemImageUrl = string | null
-
-export type GetApiUsersByIdMarkers200TwoDataItemCreatedAt = unknown | string | string | number
-
-export type GetApiUsersByIdMarkers200TwoDataItemUpdatedAt = unknown | string | string | number
-
-export type GetApiUsersByIdMarkers200TwoDataItemUserAvatar = string | null
-
-export type GetApiUsersByIdMarkers200TwoDataItemUser = {
-  id: string
-  name: string
-  email: string
-  avatar: GetApiUsersByIdMarkers200TwoDataItemUserAvatar
-}
-
-export type GetApiUsersByIdMarkers200TwoDataItem = {
-  id: string
-  title: string
-  description: GetApiUsersByIdMarkers200TwoDataItemDescription
-  latitude: number
-  longitude: number
-  address: GetApiUsersByIdMarkers200TwoDataItemAddress
-  imageUrl: GetApiUsersByIdMarkers200TwoDataItemImageUrl
-  userId: string
-  createdAt: GetApiUsersByIdMarkers200TwoDataItemCreatedAt
-  updatedAt: GetApiUsersByIdMarkers200TwoDataItemUpdatedAt
-  user: GetApiUsersByIdMarkers200TwoDataItemUser
-}
-
-export type GetApiUsersByIdMarkers200Two = {
-  success: boolean
-  data: GetApiUsersByIdMarkers200TwoDataItem[]
-  total: number
-  page: number
-  limit: number
-  totalPages: number
-}
-
-export type GetApiUsersByIdMarkers200ThreeDataItemDescription = string | null
-
-export type GetApiUsersByIdMarkers200ThreeDataItemAddress = string | null
-
-export type GetApiUsersByIdMarkers200ThreeDataItemImageUrl = string | null
-
-export type GetApiUsersByIdMarkers200ThreeDataItemCreatedAt = unknown | string | string | number
-
-export type GetApiUsersByIdMarkers200ThreeDataItemUpdatedAt = unknown | string | string | number
-
-export type GetApiUsersByIdMarkers200ThreeDataItemUserAvatar = string | null
-
-export type GetApiUsersByIdMarkers200ThreeDataItemUser = {
-  id: string
-  name: string
-  email: string
-  avatar: GetApiUsersByIdMarkers200ThreeDataItemUserAvatar
-}
-
-export type GetApiUsersByIdMarkers200ThreeDataItem = {
-  id: string
-  title: string
-  description: GetApiUsersByIdMarkers200ThreeDataItemDescription
-  latitude: number
-  longitude: number
-  address: GetApiUsersByIdMarkers200ThreeDataItemAddress
-  imageUrl: GetApiUsersByIdMarkers200ThreeDataItemImageUrl
-  userId: string
-  createdAt: GetApiUsersByIdMarkers200ThreeDataItemCreatedAt
-  updatedAt: GetApiUsersByIdMarkers200ThreeDataItemUpdatedAt
-  user: GetApiUsersByIdMarkers200ThreeDataItemUser
-}
-
-export type GetApiUsersByIdMarkers200Three = {
-  success: boolean
-  data: GetApiUsersByIdMarkers200ThreeDataItem[]
-  total: number
-  page: number
-  limit: number
-  totalPages: number
-}
-
 export type GetApiUsersByIdMarkers404One = {
   success: boolean
   message: string
 }
 
-export type GetApiUsersByIdMarkers404Two = {
-  success: boolean
-  message: string
-}
-
-export type GetApiUsersByIdMarkers404Three = {
-  success: boolean
-  message: string
-}
-
 export type PutApiUsersProfileBodyOne = {
-  /**
-   * @minLength 2
-   * @maxLength 50
-   */
-  name?: string
-  avatar?: string
-}
-
-export type PutApiUsersProfileBodyTwo = {
-  /**
-   * @minLength 2
-   * @maxLength 50
-   */
-  name?: string
-  avatar?: string
-}
-
-export type PutApiUsersProfileBodyThree = {
   /**
    * @minLength 2
    * @maxLength 50
@@ -696,57 +256,7 @@ export type PutApiUsersProfile200One = {
   data: PutApiUsersProfile200OneData
 }
 
-export type PutApiUsersProfile200TwoDataAvatar = string | null
-
-export type PutApiUsersProfile200TwoDataCreatedAt = unknown | string | string | number
-
-export type PutApiUsersProfile200TwoDataUpdatedAt = unknown | string | string | number
-
-export type PutApiUsersProfile200TwoData = {
-  id: string
-  name: string
-  email: string
-  avatar: PutApiUsersProfile200TwoDataAvatar
-  createdAt: PutApiUsersProfile200TwoDataCreatedAt
-  updatedAt: PutApiUsersProfile200TwoDataUpdatedAt
-}
-
-export type PutApiUsersProfile200Two = {
-  success: boolean
-  data: PutApiUsersProfile200TwoData
-}
-
-export type PutApiUsersProfile200ThreeDataAvatar = string | null
-
-export type PutApiUsersProfile200ThreeDataCreatedAt = unknown | string | string | number
-
-export type PutApiUsersProfile200ThreeDataUpdatedAt = unknown | string | string | number
-
-export type PutApiUsersProfile200ThreeData = {
-  id: string
-  name: string
-  email: string
-  avatar: PutApiUsersProfile200ThreeDataAvatar
-  createdAt: PutApiUsersProfile200ThreeDataCreatedAt
-  updatedAt: PutApiUsersProfile200ThreeDataUpdatedAt
-}
-
-export type PutApiUsersProfile200Three = {
-  success: boolean
-  data: PutApiUsersProfile200ThreeData
-}
-
 export type PutApiUsersProfile404One = {
-  success: boolean
-  message: string
-}
-
-export type PutApiUsersProfile404Two = {
-  success: boolean
-  message: string
-}
-
-export type PutApiUsersProfile404Three = {
   success: boolean
   message: string
 }
@@ -766,47 +276,7 @@ export type PutApiUsersPasswordBodyOne = {
   confirmPassword: string
 }
 
-export type PutApiUsersPasswordBodyTwo = {
-  /** @minLength 1 */
-  currentPassword: string
-  /**
-   * @minLength 6
-   * @maxLength 100
-   */
-  newPassword: string
-  /**
-   * @minLength 6
-   * @maxLength 100
-   */
-  confirmPassword: string
-}
-
-export type PutApiUsersPasswordBodyThree = {
-  /** @minLength 1 */
-  currentPassword: string
-  /**
-   * @minLength 6
-   * @maxLength 100
-   */
-  newPassword: string
-  /**
-   * @minLength 6
-   * @maxLength 100
-   */
-  confirmPassword: string
-}
-
 export type PutApiUsersPassword200One = {
-  success: boolean
-  message: string
-}
-
-export type PutApiUsersPassword200Two = {
-  success: boolean
-  message: string
-}
-
-export type PutApiUsersPassword200Three = {
   success: boolean
   message: string
 }
@@ -816,42 +286,12 @@ export type PutApiUsersPassword400One = {
   message: string
 }
 
-export type PutApiUsersPassword400Two = {
-  success: boolean
-  message: string
-}
-
-export type PutApiUsersPassword400Three = {
-  success: boolean
-  message: string
-}
-
 export type PutApiUsersPassword404One = {
   success: boolean
   message: string
 }
 
-export type PutApiUsersPassword404Two = {
-  success: boolean
-  message: string
-}
-
-export type PutApiUsersPassword404Three = {
-  success: boolean
-  message: string
-}
-
 export type DeleteApiUsersAccount200One = {
-  success: boolean
-  message: string
-}
-
-export type DeleteApiUsersAccount200Two = {
-  success: boolean
-  message: string
-}
-
-export type DeleteApiUsersAccount200Three = {
   success: boolean
   message: string
 }
@@ -894,129 +334,7 @@ export type GetApiMarkers200One = {
   data: GetApiMarkers200OneDataItem[]
 }
 
-export type GetApiMarkers200TwoDataItemDescription = string | null
-
-export type GetApiMarkers200TwoDataItemAddress = string | null
-
-export type GetApiMarkers200TwoDataItemImageUrl = string | null
-
-export type GetApiMarkers200TwoDataItemCreatedAt = unknown | string | string | number
-
-export type GetApiMarkers200TwoDataItemUpdatedAt = unknown | string | string | number
-
-export type GetApiMarkers200TwoDataItemUserAvatar = string | null
-
-export type GetApiMarkers200TwoDataItemUser = {
-  id: string
-  name: string
-  email: string
-  avatar: GetApiMarkers200TwoDataItemUserAvatar
-}
-
-export type GetApiMarkers200TwoDataItem = {
-  id: string
-  title: string
-  description: GetApiMarkers200TwoDataItemDescription
-  latitude: number
-  longitude: number
-  address: GetApiMarkers200TwoDataItemAddress
-  imageUrl: GetApiMarkers200TwoDataItemImageUrl
-  userId: string
-  createdAt: GetApiMarkers200TwoDataItemCreatedAt
-  updatedAt: GetApiMarkers200TwoDataItemUpdatedAt
-  user: GetApiMarkers200TwoDataItemUser
-}
-
-export type GetApiMarkers200Two = {
-  success: boolean
-  data: GetApiMarkers200TwoDataItem[]
-}
-
-export type GetApiMarkers200ThreeDataItemDescription = string | null
-
-export type GetApiMarkers200ThreeDataItemAddress = string | null
-
-export type GetApiMarkers200ThreeDataItemImageUrl = string | null
-
-export type GetApiMarkers200ThreeDataItemCreatedAt = unknown | string | string | number
-
-export type GetApiMarkers200ThreeDataItemUpdatedAt = unknown | string | string | number
-
-export type GetApiMarkers200ThreeDataItemUserAvatar = string | null
-
-export type GetApiMarkers200ThreeDataItemUser = {
-  id: string
-  name: string
-  email: string
-  avatar: GetApiMarkers200ThreeDataItemUserAvatar
-}
-
-export type GetApiMarkers200ThreeDataItem = {
-  id: string
-  title: string
-  description: GetApiMarkers200ThreeDataItemDescription
-  latitude: number
-  longitude: number
-  address: GetApiMarkers200ThreeDataItemAddress
-  imageUrl: GetApiMarkers200ThreeDataItemImageUrl
-  userId: string
-  createdAt: GetApiMarkers200ThreeDataItemCreatedAt
-  updatedAt: GetApiMarkers200ThreeDataItemUpdatedAt
-  user: GetApiMarkers200ThreeDataItemUser
-}
-
-export type GetApiMarkers200Three = {
-  success: boolean
-  data: GetApiMarkers200ThreeDataItem[]
-}
-
 export type PostApiMarkersBodyOne = {
-  /**
-   * @minLength 1
-   * @maxLength 200
-   */
-  title: string
-  /** @maxLength 1000 */
-  description?: string
-  /**
-   * @minimum -90
-   * @maximum 90
-   */
-  latitude: number
-  /**
-   * @minimum -180
-   * @maximum 180
-   */
-  longitude: number
-  /** @maxLength 500 */
-  address?: string
-  imageUrl?: string
-}
-
-export type PostApiMarkersBodyTwo = {
-  /**
-   * @minLength 1
-   * @maxLength 200
-   */
-  title: string
-  /** @maxLength 1000 */
-  description?: string
-  /**
-   * @minimum -90
-   * @maximum 90
-   */
-  latitude: number
-  /**
-   * @minimum -180
-   * @maximum 180
-   */
-  longitude: number
-  /** @maxLength 500 */
-  address?: string
-  imageUrl?: string
-}
-
-export type PostApiMarkersBodyThree = {
   /**
    * @minLength 1
    * @maxLength 200
@@ -1077,93 +395,7 @@ export type PostApiMarkers201One = {
   data: PostApiMarkers201OneData
 }
 
-export type PostApiMarkers201TwoDataDescription = string | null
-
-export type PostApiMarkers201TwoDataAddress = string | null
-
-export type PostApiMarkers201TwoDataImageUrl = string | null
-
-export type PostApiMarkers201TwoDataCreatedAt = unknown | string | string | number
-
-export type PostApiMarkers201TwoDataUpdatedAt = unknown | string | string | number
-
-export type PostApiMarkers201TwoDataUserAvatar = string | null
-
-export type PostApiMarkers201TwoDataUser = {
-  id: string
-  name: string
-  email: string
-  avatar: PostApiMarkers201TwoDataUserAvatar
-}
-
-export type PostApiMarkers201TwoData = {
-  id: string
-  title: string
-  description: PostApiMarkers201TwoDataDescription
-  latitude: number
-  longitude: number
-  address: PostApiMarkers201TwoDataAddress
-  imageUrl: PostApiMarkers201TwoDataImageUrl
-  userId: string
-  createdAt: PostApiMarkers201TwoDataCreatedAt
-  updatedAt: PostApiMarkers201TwoDataUpdatedAt
-  user: PostApiMarkers201TwoDataUser
-}
-
-export type PostApiMarkers201Two = {
-  success: boolean
-  data: PostApiMarkers201TwoData
-}
-
-export type PostApiMarkers201ThreeDataDescription = string | null
-
-export type PostApiMarkers201ThreeDataAddress = string | null
-
-export type PostApiMarkers201ThreeDataImageUrl = string | null
-
-export type PostApiMarkers201ThreeDataCreatedAt = unknown | string | string | number
-
-export type PostApiMarkers201ThreeDataUpdatedAt = unknown | string | string | number
-
-export type PostApiMarkers201ThreeDataUserAvatar = string | null
-
-export type PostApiMarkers201ThreeDataUser = {
-  id: string
-  name: string
-  email: string
-  avatar: PostApiMarkers201ThreeDataUserAvatar
-}
-
-export type PostApiMarkers201ThreeData = {
-  id: string
-  title: string
-  description: PostApiMarkers201ThreeDataDescription
-  latitude: number
-  longitude: number
-  address: PostApiMarkers201ThreeDataAddress
-  imageUrl: PostApiMarkers201ThreeDataImageUrl
-  userId: string
-  createdAt: PostApiMarkers201ThreeDataCreatedAt
-  updatedAt: PostApiMarkers201ThreeDataUpdatedAt
-  user: PostApiMarkers201ThreeDataUser
-}
-
-export type PostApiMarkers201Three = {
-  success: boolean
-  data: PostApiMarkers201ThreeData
-}
-
 export type PostApiMarkers400One = {
-  success: boolean
-  message: string
-}
-
-export type PostApiMarkers400Two = {
-  success: boolean
-  message: string
-}
-
-export type PostApiMarkers400Three = {
   success: boolean
   message: string
 }
@@ -1206,144 +438,12 @@ export type GetApiMarkersById200One = {
   data: GetApiMarkersById200OneData
 }
 
-export type GetApiMarkersById200TwoDataDescription = string | null
-
-export type GetApiMarkersById200TwoDataAddress = string | null
-
-export type GetApiMarkersById200TwoDataImageUrl = string | null
-
-export type GetApiMarkersById200TwoDataCreatedAt = unknown | string | string | number
-
-export type GetApiMarkersById200TwoDataUpdatedAt = unknown | string | string | number
-
-export type GetApiMarkersById200TwoDataUserAvatar = string | null
-
-export type GetApiMarkersById200TwoDataUser = {
-  id: string
-  name: string
-  email: string
-  avatar: GetApiMarkersById200TwoDataUserAvatar
-}
-
-export type GetApiMarkersById200TwoData = {
-  id: string
-  title: string
-  description: GetApiMarkersById200TwoDataDescription
-  latitude: number
-  longitude: number
-  address: GetApiMarkersById200TwoDataAddress
-  imageUrl: GetApiMarkersById200TwoDataImageUrl
-  userId: string
-  createdAt: GetApiMarkersById200TwoDataCreatedAt
-  updatedAt: GetApiMarkersById200TwoDataUpdatedAt
-  user: GetApiMarkersById200TwoDataUser
-}
-
-export type GetApiMarkersById200Two = {
-  success: boolean
-  data: GetApiMarkersById200TwoData
-}
-
-export type GetApiMarkersById200ThreeDataDescription = string | null
-
-export type GetApiMarkersById200ThreeDataAddress = string | null
-
-export type GetApiMarkersById200ThreeDataImageUrl = string | null
-
-export type GetApiMarkersById200ThreeDataCreatedAt = unknown | string | string | number
-
-export type GetApiMarkersById200ThreeDataUpdatedAt = unknown | string | string | number
-
-export type GetApiMarkersById200ThreeDataUserAvatar = string | null
-
-export type GetApiMarkersById200ThreeDataUser = {
-  id: string
-  name: string
-  email: string
-  avatar: GetApiMarkersById200ThreeDataUserAvatar
-}
-
-export type GetApiMarkersById200ThreeData = {
-  id: string
-  title: string
-  description: GetApiMarkersById200ThreeDataDescription
-  latitude: number
-  longitude: number
-  address: GetApiMarkersById200ThreeDataAddress
-  imageUrl: GetApiMarkersById200ThreeDataImageUrl
-  userId: string
-  createdAt: GetApiMarkersById200ThreeDataCreatedAt
-  updatedAt: GetApiMarkersById200ThreeDataUpdatedAt
-  user: GetApiMarkersById200ThreeDataUser
-}
-
-export type GetApiMarkersById200Three = {
-  success: boolean
-  data: GetApiMarkersById200ThreeData
-}
-
 export type GetApiMarkersById404One = {
   success: boolean
   message: string
 }
 
-export type GetApiMarkersById404Two = {
-  success: boolean
-  message: string
-}
-
-export type GetApiMarkersById404Three = {
-  success: boolean
-  message: string
-}
-
 export type PutApiMarkersByIdBodyOne = {
-  /**
-   * @minLength 1
-   * @maxLength 200
-   */
-  title?: string
-  /** @maxLength 1000 */
-  description?: string
-  /**
-   * @minimum -90
-   * @maximum 90
-   */
-  latitude?: number
-  /**
-   * @minimum -180
-   * @maximum 180
-   */
-  longitude?: number
-  /** @maxLength 500 */
-  address?: string
-  imageUrl?: string
-}
-
-export type PutApiMarkersByIdBodyTwo = {
-  /**
-   * @minLength 1
-   * @maxLength 200
-   */
-  title?: string
-  /** @maxLength 1000 */
-  description?: string
-  /**
-   * @minimum -90
-   * @maximum 90
-   */
-  latitude?: number
-  /**
-   * @minimum -180
-   * @maximum 180
-   */
-  longitude?: number
-  /** @maxLength 500 */
-  address?: string
-  imageUrl?: string
-}
-
-export type PutApiMarkersByIdBodyThree = {
   /**
    * @minLength 1
    * @maxLength 200
@@ -1404,93 +504,7 @@ export type PutApiMarkersById200One = {
   data: PutApiMarkersById200OneData
 }
 
-export type PutApiMarkersById200TwoDataDescription = string | null
-
-export type PutApiMarkersById200TwoDataAddress = string | null
-
-export type PutApiMarkersById200TwoDataImageUrl = string | null
-
-export type PutApiMarkersById200TwoDataCreatedAt = unknown | string | string | number
-
-export type PutApiMarkersById200TwoDataUpdatedAt = unknown | string | string | number
-
-export type PutApiMarkersById200TwoDataUserAvatar = string | null
-
-export type PutApiMarkersById200TwoDataUser = {
-  id: string
-  name: string
-  email: string
-  avatar: PutApiMarkersById200TwoDataUserAvatar
-}
-
-export type PutApiMarkersById200TwoData = {
-  id: string
-  title: string
-  description: PutApiMarkersById200TwoDataDescription
-  latitude: number
-  longitude: number
-  address: PutApiMarkersById200TwoDataAddress
-  imageUrl: PutApiMarkersById200TwoDataImageUrl
-  userId: string
-  createdAt: PutApiMarkersById200TwoDataCreatedAt
-  updatedAt: PutApiMarkersById200TwoDataUpdatedAt
-  user: PutApiMarkersById200TwoDataUser
-}
-
-export type PutApiMarkersById200Two = {
-  success: boolean
-  data: PutApiMarkersById200TwoData
-}
-
-export type PutApiMarkersById200ThreeDataDescription = string | null
-
-export type PutApiMarkersById200ThreeDataAddress = string | null
-
-export type PutApiMarkersById200ThreeDataImageUrl = string | null
-
-export type PutApiMarkersById200ThreeDataCreatedAt = unknown | string | string | number
-
-export type PutApiMarkersById200ThreeDataUpdatedAt = unknown | string | string | number
-
-export type PutApiMarkersById200ThreeDataUserAvatar = string | null
-
-export type PutApiMarkersById200ThreeDataUser = {
-  id: string
-  name: string
-  email: string
-  avatar: PutApiMarkersById200ThreeDataUserAvatar
-}
-
-export type PutApiMarkersById200ThreeData = {
-  id: string
-  title: string
-  description: PutApiMarkersById200ThreeDataDescription
-  latitude: number
-  longitude: number
-  address: PutApiMarkersById200ThreeDataAddress
-  imageUrl: PutApiMarkersById200ThreeDataImageUrl
-  userId: string
-  createdAt: PutApiMarkersById200ThreeDataCreatedAt
-  updatedAt: PutApiMarkersById200ThreeDataUpdatedAt
-  user: PutApiMarkersById200ThreeDataUser
-}
-
-export type PutApiMarkersById200Three = {
-  success: boolean
-  data: PutApiMarkersById200ThreeData
-}
-
 export type PutApiMarkersById403One = {
-  success: boolean
-  message: string
-}
-
-export type PutApiMarkersById403Two = {
-  success: boolean
-  message: string
-}
-
-export type PutApiMarkersById403Three = {
   success: boolean
   message: string
 }
@@ -1500,27 +514,7 @@ export type PutApiMarkersById404One = {
   message: string
 }
 
-export type PutApiMarkersById404Two = {
-  success: boolean
-  message: string
-}
-
-export type PutApiMarkersById404Three = {
-  success: boolean
-  message: string
-}
-
 export type DeleteApiMarkersById200One = {
-  success: boolean
-  message: string
-}
-
-export type DeleteApiMarkersById200Two = {
-  success: boolean
-  message: string
-}
-
-export type DeleteApiMarkersById200Three = {
   success: boolean
   message: string
 }
@@ -1530,27 +524,7 @@ export type DeleteApiMarkersById403One = {
   message: string
 }
 
-export type DeleteApiMarkersById403Two = {
-  success: boolean
-  message: string
-}
-
-export type DeleteApiMarkersById403Three = {
-  success: boolean
-  message: string
-}
-
 export type DeleteApiMarkersById404One = {
-  success: boolean
-  message: string
-}
-
-export type DeleteApiMarkersById404Two = {
-  success: boolean
-  message: string
-}
-
-export type DeleteApiMarkersById404Three = {
   success: boolean
   message: string
 }
@@ -1593,226 +567,103 @@ export type GetApiMarkersMyMarkers200One = {
   data: GetApiMarkersMyMarkers200OneDataItem[]
 }
 
-export type GetApiMarkersMyMarkers200TwoDataItemDescription = string | null
-
-export type GetApiMarkersMyMarkers200TwoDataItemAddress = string | null
-
-export type GetApiMarkersMyMarkers200TwoDataItemImageUrl = string | null
-
-export type GetApiMarkersMyMarkers200TwoDataItemCreatedAt = unknown | string | string | number
-
-export type GetApiMarkersMyMarkers200TwoDataItemUpdatedAt = unknown | string | string | number
-
-export type GetApiMarkersMyMarkers200TwoDataItemUserAvatar = string | null
-
-export type GetApiMarkersMyMarkers200TwoDataItemUser = {
-  id: string
-  name: string
-  email: string
-  avatar: GetApiMarkersMyMarkers200TwoDataItemUserAvatar
-}
-
-export type GetApiMarkersMyMarkers200TwoDataItem = {
-  id: string
-  title: string
-  description: GetApiMarkersMyMarkers200TwoDataItemDescription
-  latitude: number
-  longitude: number
-  address: GetApiMarkersMyMarkers200TwoDataItemAddress
-  imageUrl: GetApiMarkersMyMarkers200TwoDataItemImageUrl
-  userId: string
-  createdAt: GetApiMarkersMyMarkers200TwoDataItemCreatedAt
-  updatedAt: GetApiMarkersMyMarkers200TwoDataItemUpdatedAt
-  user: GetApiMarkersMyMarkers200TwoDataItemUser
-}
-
-export type GetApiMarkersMyMarkers200Two = {
-  success: boolean
-  data: GetApiMarkersMyMarkers200TwoDataItem[]
-}
-
-export type GetApiMarkersMyMarkers200ThreeDataItemDescription = string | null
-
-export type GetApiMarkersMyMarkers200ThreeDataItemAddress = string | null
-
-export type GetApiMarkersMyMarkers200ThreeDataItemImageUrl = string | null
-
-export type GetApiMarkersMyMarkers200ThreeDataItemCreatedAt = unknown | string | string | number
-
-export type GetApiMarkersMyMarkers200ThreeDataItemUpdatedAt = unknown | string | string | number
-
-export type GetApiMarkersMyMarkers200ThreeDataItemUserAvatar = string | null
-
-export type GetApiMarkersMyMarkers200ThreeDataItemUser = {
-  id: string
-  name: string
-  email: string
-  avatar: GetApiMarkersMyMarkers200ThreeDataItemUserAvatar
-}
-
-export type GetApiMarkersMyMarkers200ThreeDataItem = {
-  id: string
-  title: string
-  description: GetApiMarkersMyMarkers200ThreeDataItemDescription
-  latitude: number
-  longitude: number
-  address: GetApiMarkersMyMarkers200ThreeDataItemAddress
-  imageUrl: GetApiMarkersMyMarkers200ThreeDataItemImageUrl
-  userId: string
-  createdAt: GetApiMarkersMyMarkers200ThreeDataItemCreatedAt
-  updatedAt: GetApiMarkersMyMarkers200ThreeDataItemUpdatedAt
-  user: GetApiMarkersMyMarkers200ThreeDataItemUser
-}
-
-export type GetApiMarkersMyMarkers200Three = {
-  success: boolean
-  data: GetApiMarkersMyMarkers200ThreeDataItem[]
-}
-
 export const getElysiaDocumentation = () => {
-  const postApiAuthRegister = (
-    postApiAuthRegisterBody:
-      | PostApiAuthRegisterBodyOne
-      | PostApiAuthRegisterBodyTwo
-      | PostApiAuthRegisterBodyThree,
-  ) => {
-    return apiMutator<PostApiAuthRegister201One | Blob | PostApiAuthRegister201Three>({
+  const postApiAuthRegister = (postApiAuthRegisterBodyOne: PostApiAuthRegisterBodyOne) => {
+    return apiMutator<PostApiAuthRegister201One>({
       url: `/api/auth/register`,
       method: 'POST',
-      data: postApiAuthRegisterBody,
+      headers: { 'Content-Type': 'application/json' },
+      data: postApiAuthRegisterBodyOne,
     })
   }
 
-  const postApiAuthLogin = (
-    postApiAuthLoginBody:
-      | PostApiAuthLoginBodyOne
-      | PostApiAuthLoginBodyTwo
-      | PostApiAuthLoginBodyThree,
-  ) => {
-    return apiMutator<PostApiAuthLogin200One | Blob | PostApiAuthLogin200Three>({
+  const postApiAuthLogin = (postApiAuthLoginBodyOne: PostApiAuthLoginBodyOne) => {
+    return apiMutator<PostApiAuthLogin200One>({
       url: `/api/auth/login`,
       method: 'POST',
-      data: postApiAuthLoginBody,
+      headers: { 'Content-Type': 'application/json' },
+      data: postApiAuthLoginBodyOne,
     })
   }
 
   const postApiAuthLogout = () => {
-    return apiMutator<PostApiAuthLogout200One | Blob | PostApiAuthLogout200Three>({
-      url: `/api/auth/logout`,
-      method: 'POST',
-    })
+    return apiMutator<PostApiAuthLogout200One>({ url: `/api/auth/logout`, method: 'POST' })
   }
 
   const getApiAuthMe = () => {
-    return apiMutator<GetApiAuthMe200One | Blob | GetApiAuthMe200Three>({
-      url: `/api/auth/me`,
-      method: 'GET',
-    })
+    return apiMutator<GetApiAuthMe200One>({ url: `/api/auth/me`, method: 'GET' })
   }
 
   const getApiUsers = (params?: GetApiUsersParams) => {
-    return apiMutator<GetApiUsers200One | Blob | GetApiUsers200Three>({
-      url: `/api/users/`,
-      method: 'GET',
-      params,
-    })
+    return apiMutator<GetApiUsers200One>({ url: `/api/users/`, method: 'GET', params })
   }
 
   const getApiUsersById = (id: string) => {
-    return apiMutator<GetApiUsersById200One | Blob | GetApiUsersById200Three>({
-      url: `/api/users/${id}`,
-      method: 'GET',
-    })
+    return apiMutator<GetApiUsersById200One>({ url: `/api/users/${id}`, method: 'GET' })
   }
 
   const getApiUsersByIdMarkers = (id: string, params?: GetApiUsersByIdMarkersParams) => {
-    return apiMutator<GetApiUsersByIdMarkers200One | Blob | GetApiUsersByIdMarkers200Three>({
+    return apiMutator<GetApiUsersByIdMarkers200One>({
       url: `/api/users/${id}/markers`,
       method: 'GET',
       params,
     })
   }
 
-  const putApiUsersProfile = (
-    putApiUsersProfileBody:
-      | PutApiUsersProfileBodyOne
-      | PutApiUsersProfileBodyTwo
-      | PutApiUsersProfileBodyThree,
-  ) => {
-    return apiMutator<PutApiUsersProfile200One | Blob | PutApiUsersProfile200Three>({
+  const putApiUsersProfile = (putApiUsersProfileBodyOne: PutApiUsersProfileBodyOne) => {
+    return apiMutator<PutApiUsersProfile200One>({
       url: `/api/users/profile`,
       method: 'PUT',
-      data: putApiUsersProfileBody,
+      headers: { 'Content-Type': 'application/json' },
+      data: putApiUsersProfileBodyOne,
     })
   }
 
-  const putApiUsersPassword = (
-    putApiUsersPasswordBody:
-      | PutApiUsersPasswordBodyOne
-      | PutApiUsersPasswordBodyTwo
-      | PutApiUsersPasswordBodyThree,
-  ) => {
-    return apiMutator<PutApiUsersPassword200One | Blob | PutApiUsersPassword200Three>({
+  const putApiUsersPassword = (putApiUsersPasswordBodyOne: PutApiUsersPasswordBodyOne) => {
+    return apiMutator<PutApiUsersPassword200One>({
       url: `/api/users/password`,
       method: 'PUT',
-      data: putApiUsersPasswordBody,
+      headers: { 'Content-Type': 'application/json' },
+      data: putApiUsersPasswordBodyOne,
     })
   }
 
   const deleteApiUsersAccount = () => {
-    return apiMutator<DeleteApiUsersAccount200One | Blob | DeleteApiUsersAccount200Three>({
-      url: `/api/users/account`,
-      method: 'DELETE',
-    })
+    return apiMutator<DeleteApiUsersAccount200One>({ url: `/api/users/account`, method: 'DELETE' })
   }
 
   const getApiMarkers = () => {
-    return apiMutator<GetApiMarkers200One | Blob | GetApiMarkers200Three>({
-      url: `/api/markers/`,
-      method: 'GET',
-    })
+    return apiMutator<GetApiMarkers200One>({ url: `/api/markers/`, method: 'GET' })
   }
 
-  const postApiMarkers = (
-    postApiMarkersBody: PostApiMarkersBodyOne | PostApiMarkersBodyTwo | PostApiMarkersBodyThree,
-  ) => {
-    return apiMutator<PostApiMarkers201One | Blob | PostApiMarkers201Three>({
+  const postApiMarkers = (postApiMarkersBodyOne: PostApiMarkersBodyOne) => {
+    return apiMutator<PostApiMarkers201One>({
       url: `/api/markers/`,
       method: 'POST',
-      data: postApiMarkersBody,
+      headers: { 'Content-Type': 'application/json' },
+      data: postApiMarkersBodyOne,
     })
   }
 
   const getApiMarkersById = (id: string) => {
-    return apiMutator<GetApiMarkersById200One | Blob | GetApiMarkersById200Three>({
-      url: `/api/markers/${id}`,
-      method: 'GET',
-    })
+    return apiMutator<GetApiMarkersById200One>({ url: `/api/markers/${id}`, method: 'GET' })
   }
 
-  const putApiMarkersById = (
-    id: string,
-    putApiMarkersByIdBody:
-      | PutApiMarkersByIdBodyOne
-      | PutApiMarkersByIdBodyTwo
-      | PutApiMarkersByIdBodyThree,
-  ) => {
-    return apiMutator<PutApiMarkersById200One | Blob | PutApiMarkersById200Three>({
+  const putApiMarkersById = (id: string, putApiMarkersByIdBodyOne: PutApiMarkersByIdBodyOne) => {
+    return apiMutator<PutApiMarkersById200One>({
       url: `/api/markers/${id}`,
       method: 'PUT',
-      data: putApiMarkersByIdBody,
+      headers: { 'Content-Type': 'application/json' },
+      data: putApiMarkersByIdBodyOne,
     })
   }
 
   const deleteApiMarkersById = (id: string) => {
-    return apiMutator<DeleteApiMarkersById200One | Blob | DeleteApiMarkersById200Three>({
-      url: `/api/markers/${id}`,
-      method: 'DELETE',
-    })
+    return apiMutator<DeleteApiMarkersById200One>({ url: `/api/markers/${id}`, method: 'DELETE' })
   }
 
   const getApiMarkersMyMarkers = () => {
-    return apiMutator<GetApiMarkersMyMarkers200One | Blob | GetApiMarkersMyMarkers200Three>({
+    return apiMutator<GetApiMarkersMyMarkers200One>({
       url: `/api/markers/my/markers`,
       method: 'GET',
     })

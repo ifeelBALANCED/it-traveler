@@ -19,4 +19,4 @@ export type {
   GetApiMarkersMyMarkersResult,
 } from './client'
 
-export const apiClient = getClient()
+export const elysiaClient = getClient()

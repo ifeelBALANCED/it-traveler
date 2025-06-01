@@ -9,14 +9,17 @@ export default defineConfig({
       target: SWAGGER_URL,
     },
     output: {
-      mode: 'single',
       target: 'src/shared/api/client.ts',
       client: 'axios',
       httpClient: 'axios',
+      prettier: true,
       override: {
         mutator: {
           path: './src/shared/api/apiMutator.ts',
           name: 'apiMutator',
+        },
+        contentType: {
+          include: ['application/json'],
         },
       },
     },
