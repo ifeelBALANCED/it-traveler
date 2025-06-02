@@ -5,13 +5,14 @@ import FormSection from './FormSection.vue'
 import { PasswordInput } from '@/shared/ui/password-input'
 import { ButtonVariants } from '@/shared/types'
 import { useAuthForm } from '@/features/auth'
+import { elysiaClient } from '@/shared/api'
 
-const { loginForm, loginValues, loginErrors, loginEmailAttrs, loginPasswordAttrs, handleLogin } =
-  useAuthForm()
+const { loginValues, loginErrors, loginEmailAttrs, loginPasswordAttrs } = useAuthForm()
 
 function submit() {
-  handleLogin((values) => {
-    console.log('LOGIN PAYLOAD:', values)
+  elysiaClient.postApiAuthLogin({
+    email: 'loginValues.email',
+    password: 'loginValues.password',
   })
 }
 </script>
@@ -39,12 +40,7 @@ function submit() {
       required
     />
 
-    <Button
-      class="mt-auto font-bold"
-      :variant="ButtonVariants.Gradient"
-      :disabled="!loginForm.meta.value.valid || loginForm.meta.value.pending"
-      @click.prevent="submit"
-    >
+    <Button class="mt-auto font-bold" :variant="ButtonVariants.Gradient" @click.prevent="submit">
       Log in
     </Button>
   </FormSection>

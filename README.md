@@ -1,64 +1,140 @@
-# vue-project
+# IT Traveler 🌍
 
-This template should help get you started developing with Vue 3 in Vite.
+A modern travel companion application for tech enthusiasts, built with Vue 3, TypeScript, and Bun.
 
-## Recommended IDE Setup
+## 🚀 Features
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+- Interactive map interface with Leaflet
+- User authentication and profile management
+- Location markers and travel tracking
+- Responsive design with Tailwind CSS
+- Type-safe API integration with Orval
+- Comprehensive testing setup (Unit + E2E)
 
-## Type Support for `.vue` Imports in TS
+## 📋 Prerequisites
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) to make the TypeScript language service aware of `.vue` types.
+- Node.js >= 22.0.0
+- Bun package manager
+- Git
 
-## Customize configuration
+## 🛠️ Installation
 
-See [Vite Configuration Reference](https://vite.dev/config/).
+1. Clone the repository:
 
-## Project Setup
+```bash
+git clone https://github.com/yourusername/it-traveler.git
+cd it-traveler
+```
 
-```sh
+2. Install dependencies:
+
+```bash
 bun install
 ```
 
-### Compile and Hot-Reload for Development
+3. Set up environment variables:
 
-```sh
+```bash
+cp .env.example .env
+```
+
+Edit `.env` with your configuration.
+
+## 🏗️ Development
+
+Start the development server:
+
+```bash
 bun dev
 ```
 
-### Type-Check, Compile and Minify for Production
+The application will be available at `http://localhost:5173`.
 
-```sh
-bun run build
-```
+## 🧪 Testing
 
-### Run Unit Tests with [Vitest](https://vitest.dev/)
+Run unit tests:
 
-```sh
+```bash
 bun test:unit
 ```
 
-### Run End-to-End Tests with [Playwright](https://playwright.dev)
+Run E2E tests:
 
-```sh
-# Install browsers for the first run
-npx playwright install
-
-# When testing on CI, must build the project first
-bun run build
-
-# Runs the end-to-end tests
+```bash
 bun test:e2e
-# Runs the tests only on Chromium
-bun test:e2e --project=chromium
-# Runs the tests of a specific file
-bun test:e2e tests/example.spec.ts
-# Runs the tests in debug mode
-bun test:e2e --debug
 ```
 
-### Lint with [ESLint](https://eslint.org/)
+## 🏭 Building
 
-```sh
+Build for production:
+
+```bash
+bun build
+```
+
+Preview production build:
+
+```bash
+bun preview
+```
+
+## 📝 Code Quality
+
+Lint code:
+
+```bash
 bun lint
 ```
+
+Format code:
+
+```bash
+bun format
+```
+
+Type checking:
+
+```bash
+bun type-check
+```
+
+## 🔄 API Generation
+
+Generate API client from OpenAPI spec:
+
+```bash
+bun generate:api
+```
+
+## 🏗️ Project Structure
+
+```
+src/
+├── app/          # Application setup and configuration
+├── shared/       # Shared components, utilities, and types
+├── entities/     # Business entities
+├── features/     # Feature modules
+├── widgets/      # Reusable UI widgets
+└── pages/        # Page components
+```
+
+## 🛠️ Tech Stack
+
+- **Framework**: Vue 3
+- **Language**: TypeScript
+- **Build Tool**: Vite
+- **Package Manager**: Bun
+- **Styling**: Tailwind CSS
+- **State Management**: Pinia
+- **Routing**: Vue Router
+- **Form Validation**: Vee-Validate + Valibot
+- **Maps**: Leaflet
+- **Testing**: Vitest + Playwright
+- **API Client**: Orval
+- **Linting**: ESLint
+- **Formatting**: Prettier
+- **Git Hooks**: Lefthook
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
