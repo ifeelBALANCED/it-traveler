@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import { toRef, ref, computed, type PropType } from 'vue'
-import type { Component } from 'vue'
+import { toRefs, ref, computed } from 'vue'
 import { useField } from 'vee-validate'
 import { Icon } from '@/shared/ui/icon'
 
@@ -25,26 +24,14 @@ const props = defineProps({
     type: String,
     default: '',
   },
-  icon: {
-    required: false,
-    type: Object as PropType<Component>,
-    default: undefined,
-  },
   iconPosition: {
-    required: false,
     type: String,
     default: 'right',
   },
-  iconComponentProps: {
-    required: false,
-    type: Object as PropType<Record<string, unknown>>,
-    default: undefined,
-  },
 })
 
-const name = toRef(props, 'name')
+const { name, label, placeholder, required, iconPosition = 'right' } = toRefs(props)
 const show = ref(false)
-const iconPosition = toRef(props, 'iconPosition')
 
 const {
   value: inputValue,
@@ -57,7 +44,6 @@ const {
 
 const inputType = computed(() => (show.value ? 'text' : 'password'))
 const eyeIcon = computed(() => (show.value ? 'eye-hidden' : 'eye-visible'))
-const hasIcon = computed(() => !!props.icon)
 const toggleEye = () => (show.value = !show.value)
 </script>
 
@@ -73,12 +59,6 @@ const toggleEye = () => (show.value = !show.value)
         :type="inputType"
         :value="inputValue"
         :placeholder="placeholder"
-        :icon="Icon"
-        icon-position="right"
-        :icon-component-props="{
-          name: eyeIcon,
-          class: 'h-5 w-5 text-gray-400 hover:text-gray-600 cursor-pointer',
-        }"
         :aria-invalid="!!errorMessage"
         :aria-describedby="errorMessage ? `${name}-error` : undefined"
         @input="handleChange"
@@ -88,16 +68,11 @@ const toggleEye = () => (show.value = !show.value)
       />
 
       <button
-        v-if="hasIcon"
         type="button"
-        class="absolute inset-y-0 flex items-center"
-        :class="{
-          'left-0 pl-3': iconPosition === 'left',
-          'right-0 pr-3': iconPosition === 'right',
-        }"
+        class="absolute inset-y-0 right-2 flex items-center h-[calc(100%-2px)]"
         @click.stop="toggleEye"
       >
-        <component :is="eyeIcon" v-bind="iconComponentProps" />
+        <Icon :name="eyeIcon" class="h-5 w-5 text-gray-400 hover:text-gray-600 cursor-pointer" />
       </button>
     </div>
 
@@ -131,10 +106,11 @@ input {
   }
 
   &[data-icon-position='left'] {
-    padding-left: 2.5rem;
+    padding-left: 2rem;
   }
+
   &[data-icon-position='right'] {
-    padding-right: 2.5rem;
+    padding-right: 2rem;
   }
 
   &[data-invalid='false'] {
