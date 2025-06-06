@@ -1,44 +1,34 @@
 <script setup lang="ts">
-import { useForm } from 'vee-validate'
-import { toTypedSchema } from '@vee-validate/zod'
-import { z } from 'zod'
-import SharedInput from './SharedInput.vue'
+import { Form } from 'vee-validate'
+import FormSection from './FormSection.vue'
+import { ButtonVariants } from '@/shared/types'
+import { Button } from '@/shared/ui/button'
+import { useAuthForm } from '../model'
+import { Input } from '@/shared/ui/input'
+import { PasswordInput } from '@/shared/ui/password-input'
 
-const formSchema = z.object({
-  email: z
-    .string()
-    .min(1, { message: 'Email is required' })
-    .email({ message: 'Must be a valid email' }),
-  password: z.string().min(6, { message: 'Password must be at least 6 characters' }),
-})
-
-const { handleSubmit } = useForm({
-  validationSchema: toTypedSchema(formSchema),
-})
-
-const onSubmit = handleSubmit((values) => {
-  console.log('Form submitted with:', values)
-})
+const { login } = useAuthForm()
 </script>
 
 <template>
-  <form @submit.prevent="onSubmit" novalidate>
-    <SharedInput name="email" type="email" label="Email" placeholder="your.email@example.com" />
-
-    <SharedInput name="password" type="password" label="Password" placeholder="••••••••" />
-
-    <button
-      type="submit"
-      class="mt-4 inline-flex justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+  <FormSection>
+    <Form
+      class="flex flex-col space-y-5 w-full h-full"
+      :validation-schema="login.schema"
+      @submit.prevent="login.submit()"
     >
-      Submit
-    </button>
-  </form>
-</template>
+      <Input
+        name="email"
+        type="email"
+        label="Електронна пошта"
+        placeholder="Ваша електронна адреса"
+        required
+      />
+      <PasswordInput name="password" label="Пароль" placeholder="Ваш пароль" required />
 
-<style scoped>
-button[disabled] {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
-</style>
+      <Button class="mt-auto font-bold" :variant="ButtonVariants.Gradient" type="submit">
+        Увійти
+      </Button>
+    </Form>
+  </FormSection>
+</template>

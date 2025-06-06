@@ -29,8 +29,6 @@ import { Button } from '@/shared/ui/button'
       </Button>
     </nav>
 
-    <form class="flex flex-col space-y-5 w-full h-full">
-      <slot />
-    </form>
+    <slot />
   </section>
 </template>
