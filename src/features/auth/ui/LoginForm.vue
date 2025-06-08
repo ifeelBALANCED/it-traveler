@@ -1,34 +1,36 @@
 <script setup lang="ts">
-import { Form } from 'vee-validate'
 import FormSection from './FormSection.vue'
 import { ButtonVariants } from '@/shared/types'
 import { Button } from '@/shared/ui/button'
-import { useAuthForm } from '../model'
 import { Input } from '@/shared/ui/input'
 import { PasswordInput } from '@/shared/ui/password-input'
+import { useLoginForm } from '../model'
 
-const { login } = useAuthForm()
+const { onSubmit, isLoading } = useLoginForm()
 </script>
 
 <template>
   <FormSection>
-    <Form
-      class="flex flex-col space-y-5 w-full h-full"
-      :validation-schema="login.schema"
-      @submit.prevent="login.submit()"
-    >
+    <form class="flex flex-col space-y-5 w-full h-full" @submit.prevent="onSubmit">
       <Input
         name="email"
-        type="email"
         label="Електронна пошта"
-        placeholder="Ваша електронна адреса"
+        placeholder="email@example.com"
+        type="email"
         required
       />
-      <PasswordInput name="password" label="Пароль" placeholder="Ваш пароль" required />
 
-      <Button class="mt-auto font-bold" :variant="ButtonVariants.Gradient" type="submit">
-        Увійти
+      <PasswordInput name="password" label="Пароль" placeholder="********" required />
+
+      <Button
+        type="submit"
+        class="mt-auto font-bold"
+        :variant="ButtonVariants.Gradient"
+        :disabled="isLoading"
+        :loading="isLoading"
+      >
+        {{ isLoading ? 'Завантаження...' : 'Увійти' }}
       </Button>
-    </Form>
+    </form>
   </FormSection>
 </template>

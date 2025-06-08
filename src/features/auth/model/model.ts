@@ -1,43 +1,45 @@
-import { useForm } from 'vee-validate'
+import { elysiaClient } from '@/shared/api'
 import { LoginFormSchema, RegisterFormSchema } from './schema'
+import { useAuthForm } from '@/shared/lib/form'
+import { useSession } from '@/entities/session'
+import { useRouter } from 'vue-router'
+import { ROUTES } from '@/shared/types'
 
-export function useAuthForm() {
-  const { handleSubmit: handleLoginSubmit } = useForm({
-    name: 'login',
-    validationSchema: LoginFormSchema,
-    initialValues: {
-      email: '',
-      password: '',
+export function useLoginForm() {
+  const session = useSession()
+  const router = useRouter()
+
+  return useAuthForm({
+    schema: LoginFormSchema,
+    initialValues: { email: '', password: '' },
+    requestFn: async (formValues) => {
+      const { data: authCredentials, success } = await elysiaClient.postApiAuthLogin(formValues)
+      if (success) {
+        session.save(authCredentials)
+        router.push({ name: ROUTES.HOME })
+      }
     },
   })
+}
 
-  const { handleSubmit: handleRegisterSubmit } = useForm({
-    name: 'register',
-    validationSchema: RegisterFormSchema,
+export function useRegisterForm() {
+  const session = useSession()
+  const router = useRouter()
+
+  return useAuthForm({
+    schema: RegisterFormSchema,
     initialValues: {
       name: '',
       email: '',
       password: '',
       confirmPassword: '',
     },
-  })
-
-  const login = handleLoginSubmit((values) => {
-    console.log('Submit', JSON.stringify(values, null, 2))
-  })
-
-  const register = handleRegisterSubmit((values) => {
-    console.log('Submit', JSON.stringify(values, null, 2))
-  })
-
-  return {
-    login: {
-      submit: login,
-      schema: LoginFormSchema,
+    requestFn: async (formValues) => {
+      const { data: authCredentials, success } = await elysiaClient.postApiAuthRegister(formValues)
+      if (success) {
+        session.save(authCredentials)
+        router.push({ name: ROUTES.HOME })
+      }
     },
-    register: {
-      submit: register,
-      schema: RegisterFormSchema,
-    },
-  }
+  })
 }

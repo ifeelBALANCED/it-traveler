@@ -4,19 +4,14 @@ import { Button } from '@/shared/ui/button'
 import { ButtonVariants } from '@/shared/types'
 import FormSection from './FormSection.vue'
 import { PasswordInput } from '@/shared/ui/password-input'
-import { Form } from 'vee-validate'
-import { useAuthForm } from '../model'
+import { useRegisterForm } from '../model'
 
-const { register } = useAuthForm()
+const { onSubmit } = useRegisterForm()
 </script>
 
 <template>
   <FormSection>
-    <Form
-      class="flex flex-col space-y-5 w-full h-full"
-      :validation-schema="register.schema"
-      @submit.prevent="register.submit()"
-    >
+    <form class="flex flex-col space-y-5 w-full h-full" @submit.prevent="onSubmit">
       <Input name="name" label="Ім'я користувача" placeholder="Введіть ім'я користувача" required />
 
       <Input
@@ -39,6 +34,6 @@ const { register } = useAuthForm()
       <Button class="font-bold mt-auto" :variant="ButtonVariants.Gradient" type="submit">
         Створити акаунт
       </Button>
-    </Form>
+    </form>
   </FormSection>
 </template>

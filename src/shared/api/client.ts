@@ -86,7 +86,7 @@ export type PostApiAuthLogin200One = {
   data: PostApiAuthLogin200OneData
 }
 
-export type PostApiAuthLogin401One = {
+export type PostApiAuthLogin400One = {
   success: boolean
   message: string
 }

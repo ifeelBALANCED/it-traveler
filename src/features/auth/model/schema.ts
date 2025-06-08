@@ -1,7 +1,6 @@
 import { z } from 'zod'
-import { toTypedSchema } from '@vee-validate/zod'
 
-export const LoginFieldsSchema = z.object({
+export const LoginFormSchema = z.object({
   email: z.string().email('Невірний формат електронної пошти').default(''),
   password: z
     .string()
@@ -10,7 +9,7 @@ export const LoginFieldsSchema = z.object({
     .default(''),
 })
 
-export const RegisterFieldsSchema = z
+export const RegisterFormSchema = z
   .object({
     name: z
       .string()
@@ -33,6 +32,3 @@ export const RegisterFieldsSchema = z
     message: 'Паролі не співпадають',
     path: ['confirmPassword'],
   })
-
-export const LoginFormSchema = toTypedSchema(LoginFieldsSchema)
-export const RegisterFormSchema = toTypedSchema(RegisterFieldsSchema)

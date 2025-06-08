@@ -3,6 +3,14 @@ import { ref } from 'vue'
 import { ButtonVariants } from '@/shared/types'
 import { Button } from '@/shared/ui/button'
 import { LeafletMap } from '@/widgets/leaflet-map'
+import { useSession } from '@/entities/session'
+import { useRouter } from 'vue-router'
+import { ROUTES } from '@/shared/types'
+import { elysiaClient } from '@/shared/api'
+
+const router = useRouter()
+const session = useSession()
+const { clear: clearSession } = session
 
 const user = ref({
   name: 'Ратушняк Ілона',
@@ -39,6 +47,14 @@ const locations = ref([
     image: '/api/placeholder/60/60',
   },
 ])
+
+async function handleLogout() {
+  const { success } = await elysiaClient.postApiAuthLogout()
+  if (success) {
+    clearSession()
+    router.push({ name: ROUTES.LOGIN })
+  }
+}
 </script>
 
 <template>
@@ -129,7 +145,10 @@ const locations = ref([
       </div>
 
       <div class="p-4 border-t border-gray-200">
-        <a href="#" class="flex items-center text-sm text-gray-500 hover:text-gray-700">
+        <span
+          class="flex items-center text-sm text-gray-500 hover:text-gray-700"
+          @click="handleLogout"
+        >
           Вихід
           <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path
@@ -139,7 +158,7 @@ const locations = ref([
               d="M9 5l7 7-7 7"
             />
           </svg>
-        </a>
+        </span>
       </div>
     </aside>
 

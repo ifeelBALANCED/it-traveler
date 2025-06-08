@@ -1,3 +1,3 @@
 export { RegisterForm, LoginForm } from './ui'
 
-export { useAuthForm } from './model'
+export { useLoginForm, useRegisterForm } from './model'
