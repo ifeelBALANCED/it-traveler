@@ -4,6 +4,7 @@
     "": {
       "name": "it-traveler",
       "dependencies": {
+        "@pinia/testing": "^1.0.2",
         "@unhead/vue": "^2.0.10",
         "@vee-validate/zod": "^4.15.1",
         "@vue-leaflet/vue-leaflet": "^0.10.1",
@@ -317,6 +318,8 @@
     "@orval/swr": ["@orval/swr@7.9.0", "", { "dependencies": { "@orval/core": "7.9.0", "@orval/fetch": "7.9.0" } }, "sha512-f06MifzMPrnXYdgt2rLLnurJ0YlXexSMyVlXAHhaJENtSVM4zlJp69rA6OULLr1i1biNGTWHSonOizKOf+cNcw=="],
 
     "@orval/zod": ["@orval/zod@7.9.0", "", { "dependencies": { "@orval/core": "7.9.0", "lodash.uniq": "^4.5.0" } }, "sha512-LkkofL+iSswsBVWCr3bPZ6un8065wB7x34DZVnF/gN3kBxy8A35I9X0Eld4EajI/1rbMmxzt7wHUYAf5NlJWHQ=="],
+
+    "@pinia/testing": ["@pinia/testing@1.0.2", "", { "peerDependencies": { "pinia": ">=3.0.3" } }, "sha512-yZVXJTKh677J0AT8kOPxGk5s1v7hMQIDT3tmeriwtR5LDu41DvXTEBQf0ql9SsHW1mCSDG38QDFzSSl5ucJqnQ=="],
 
     "@pkgjs/parseargs": ["@pkgjs/parseargs@0.11.0", "", {}, "sha512-+1VkjdD0QBLPodGrJUeqarH8VAIvQODIbwh9XpP5Syisf7YoQgsJKPNFoqqLQlu+VQ/tVSshMR6loPMn8U+dPg=="],
 
