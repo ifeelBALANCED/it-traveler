@@ -50,9 +50,11 @@ export type PostApiAuthRegister201One = {
   data: PostApiAuthRegister201OneData
 }
 
+export type PostApiAuthRegister400OneErrors = { [key: string]: unknown }
+
 export type PostApiAuthRegister400One = {
   success: boolean
-  message: string
+  errors: PostApiAuthRegister400OneErrors
 }
 
 export type PostApiAuthLoginBodyOne = {
@@ -86,9 +88,11 @@ export type PostApiAuthLogin200One = {
   data: PostApiAuthLogin200OneData
 }
 
+export type PostApiAuthLogin400OneErrors = { [key: string]: unknown }
+
 export type PostApiAuthLogin400One = {
   success: boolean
-  message: string
+  errors: PostApiAuthLogin400OneErrors
 }
 
 export type PostApiAuthLogout200One = {
@@ -116,9 +120,11 @@ export type GetApiAuthMe200One = {
   data: GetApiAuthMe200OneData
 }
 
+export type GetApiAuthMe404OneErrors = { [key: string]: unknown }
+
 export type GetApiAuthMe404One = {
   success: boolean
-  message: string
+  errors: GetApiAuthMe404OneErrors
 }
 
 export type GetApiUsersParams = {
@@ -170,9 +176,11 @@ export type GetApiUsersById200One = {
   data: GetApiUsersById200OneData
 }
 
+export type GetApiUsersById404OneErrors = { [key: string]: unknown }
+
 export type GetApiUsersById404One = {
   success: boolean
-  message: string
+  errors: GetApiUsersById404OneErrors
 }
 
 export type GetApiUsersByIdMarkersParams = {
@@ -222,9 +230,11 @@ export type GetApiUsersByIdMarkers200One = {
   totalPages: number
 }
 
+export type GetApiUsersByIdMarkers404OneErrors = { [key: string]: unknown }
+
 export type GetApiUsersByIdMarkers404One = {
   success: boolean
-  message: string
+  errors: GetApiUsersByIdMarkers404OneErrors
 }
 
 export type PutApiUsersProfileBodyOne = {
@@ -256,9 +266,11 @@ export type PutApiUsersProfile200One = {
   data: PutApiUsersProfile200OneData
 }
 
+export type PutApiUsersProfile404OneErrors = { [key: string]: unknown }
+
 export type PutApiUsersProfile404One = {
   success: boolean
-  message: string
+  errors: PutApiUsersProfile404OneErrors
 }
 
 export type PutApiUsersPasswordBodyOne = {
@@ -281,14 +293,18 @@ export type PutApiUsersPassword200One = {
   message: string
 }
 
+export type PutApiUsersPassword400OneErrors = { [key: string]: unknown }
+
 export type PutApiUsersPassword400One = {
   success: boolean
-  message: string
+  errors: PutApiUsersPassword400OneErrors
 }
+
+export type PutApiUsersPassword404OneErrors = { [key: string]: unknown }
 
 export type PutApiUsersPassword404One = {
   success: boolean
-  message: string
+  errors: PutApiUsersPassword404OneErrors
 }
 
 export type DeleteApiUsersAccount200One = {
@@ -395,9 +411,11 @@ export type PostApiMarkers201One = {
   data: PostApiMarkers201OneData
 }
 
+export type PostApiMarkers400OneErrors = { [key: string]: unknown }
+
 export type PostApiMarkers400One = {
   success: boolean
-  message: string
+  errors: PostApiMarkers400OneErrors
 }
 
 export type GetApiMarkersById200OneDataDescription = string | null
@@ -438,9 +456,11 @@ export type GetApiMarkersById200One = {
   data: GetApiMarkersById200OneData
 }
 
+export type GetApiMarkersById404OneErrors = { [key: string]: unknown }
+
 export type GetApiMarkersById404One = {
   success: boolean
-  message: string
+  errors: GetApiMarkersById404OneErrors
 }
 
 export type PutApiMarkersByIdBodyOne = {
@@ -504,14 +524,18 @@ export type PutApiMarkersById200One = {
   data: PutApiMarkersById200OneData
 }
 
+export type PutApiMarkersById403OneErrors = { [key: string]: unknown }
+
 export type PutApiMarkersById403One = {
   success: boolean
-  message: string
+  errors: PutApiMarkersById403OneErrors
 }
+
+export type PutApiMarkersById404OneErrors = { [key: string]: unknown }
 
 export type PutApiMarkersById404One = {
   success: boolean
-  message: string
+  errors: PutApiMarkersById404OneErrors
 }
 
 export type DeleteApiMarkersById200One = {
@@ -519,14 +543,18 @@ export type DeleteApiMarkersById200One = {
   message: string
 }
 
+export type DeleteApiMarkersById403OneErrors = { [key: string]: unknown }
+
 export type DeleteApiMarkersById403One = {
   success: boolean
-  message: string
+  errors: DeleteApiMarkersById403OneErrors
 }
+
+export type DeleteApiMarkersById404OneErrors = { [key: string]: unknown }
 
 export type DeleteApiMarkersById404One = {
   success: boolean
-  message: string
+  errors: DeleteApiMarkersById404OneErrors
 }
 
 export type GetApiMarkersMyMarkers200OneDataItemDescription = string | null

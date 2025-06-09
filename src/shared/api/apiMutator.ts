@@ -1,25 +1,45 @@
-import axios, { type AxiosRequestConfig, isAxiosError } from 'axios'
+import axios, { type AxiosRequestConfig, type AxiosResponse, isAxiosError } from 'axios'
+import { toast } from 'vue-sonner'
 import { ROUTES } from '../types'
+
+type ApiErrorResponse = {
+  errors?: Record<string, string | string[]>
+  message?: string
+}
 
 export async function apiMutator<T = unknown>(config: AxiosRequestConfig): Promise<T> {
   const token = sessionStorage.getItem('token')
-  if (token) {
-    config.headers = {
-      ...(config.headers ?? {}),
-      Authorization: `Bearer ${token}`,
-    }
+  const headers = token ? { ...config.headers, Authorization: `Bearer ${token}` } : config.headers
+
+  const updatedConfig: AxiosRequestConfig = {
+    ...config,
+    headers,
   }
 
   try {
-    const res = await axios.request(config)
+    const res: AxiosResponse<T> = await axios.request(updatedConfig)
     return res.data
-  } catch (err) {
-    if (isAxiosError(err) && err.response) {
-      const status = err.response.status
-      if ([401, 403].includes(status)) {
+  } catch (err: unknown) {
+    if (isAxiosError<ApiErrorResponse>(err) && err.response) {
+      const { status, data } = err.response
+
+      if (status === 401 || status === 403) {
         history.pushState(null, '', ROUTES.GREETING)
+        toast.error('Unauthorized')
       }
+
+      if (data.errors) {
+        const errorMessages = Object.values(data.errors).flat()
+        errorMessages.forEach((error) => toast.error(error))
+      } else if (data.message) {
+        toast.error(data.message)
+      }
+    } else if (err instanceof Error) {
+      toast.error(err.message)
+    } else {
+      toast.error('An unknown error occurred')
     }
+
     throw err
   }
 }

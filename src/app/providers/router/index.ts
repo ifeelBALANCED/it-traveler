@@ -1,13 +1,9 @@
-import {
-  createRouter,
-  createWebHistory,
-  type RouteLocationNormalized,
-  type RouteRecordRaw,
-} from 'vue-router'
+import { createRouter, createWebHistory, type RouteRecordRaw } from 'vue-router'
 import { storeToRefs } from 'pinia'
 import { useSession } from '@/entities/session'
 import { HomeLayout, BaseLayout } from '@/shared/ui/layouts'
 import { ROUTES } from '@/shared/types'
+import { checkAuthenticationRequirements } from '@/shared/lib/router'
 
 const GreetingPage = () => import('@/pages/greeting').then(({ GreetingPage }) => GreetingPage)
 const HomePage = () => import('@/pages/home').then(({ HomePage }) => HomePage)
@@ -71,7 +67,7 @@ export const routes: RouteRecordRaw[] = [
     } satisfies RouteMeta,
   },
   {
-    path: '/:pathMatch(.*)*',
+    path: ROUTES.NOT_FOUND,
     redirect: { name: ROUTES.NOT_FOUND },
   },
 ]
@@ -80,33 +76,13 @@ export const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes,
   scrollBehavior(to, _, savedPosition) {
-    if (savedPosition) {
-      return savedPosition
-    }
-    if (to.hash) {
-      return { el: to.hash }
-    }
+    if (savedPosition) return savedPosition
+
+    if (to.hash) return { el: to.hash }
+
     return { top: 0 }
   },
 })
-
-const checkAuthenticationRequirements = (
-  to: RouteLocationNormalized,
-  isLoggedIn: boolean,
-): { shouldRedirect: boolean; redirectTo?: string } => {
-  if (
-    isLoggedIn &&
-    (to.name === ROUTES.NOT_FOUND || to.name === ROUTES.GREETING || to.meta?.guestOnly)
-  ) {
-    return { shouldRedirect: true, redirectTo: ROUTES.HOME }
-  }
-
-  if (to.meta?.requiresAuth && !isLoggedIn) {
-    return { shouldRedirect: true, redirectTo: ROUTES.LOGIN }
-  }
-
-  return { shouldRedirect: false }
-}
 
 router.beforeEach(async (to, from, next) => {
   try {

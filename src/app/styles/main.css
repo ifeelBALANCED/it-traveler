@@ -1,5 +1,6 @@
 @import './variables.css';
 @import 'tailwindcss';
+@import 'vue-sonner/style.css';
 
 @layer base {
   body {

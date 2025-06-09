@@ -3,6 +3,7 @@ import { LoginFormSchema, RegisterFormSchema } from './schema'
 import { useAuthForm } from '@/shared/lib/form'
 import { useSession } from '@/entities/session'
 import { useRouter } from 'vue-router'
+import { toast } from 'vue-sonner'
 import { ROUTES } from '@/shared/types'
 
 export function useLoginForm() {
@@ -16,6 +17,7 @@ export function useLoginForm() {
       const { data: authCredentials, success } = await elysiaClient.postApiAuthLogin(formValues)
       if (success) {
         session.save(authCredentials)
+        toast.success('Login successful')
         router.push({ name: ROUTES.HOME })
       }
     },
@@ -38,6 +40,7 @@ export function useRegisterForm() {
       const { data: authCredentials, success } = await elysiaClient.postApiAuthRegister(formValues)
       if (success) {
         session.save(authCredentials)
+        toast.success('Registration successful')
         router.push({ name: ROUTES.HOME })
       }
     },

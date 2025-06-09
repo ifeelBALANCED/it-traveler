@@ -7,6 +7,7 @@ import { useSession } from '@/entities/session'
 import { useRouter } from 'vue-router'
 import { ROUTES } from '@/shared/types'
 import { elysiaClient } from '@/shared/api'
+import { toast } from 'vue-sonner'
 
 const router = useRouter()
 const session = useSession()
@@ -52,6 +53,7 @@ async function handleLogout() {
   const { success } = await elysiaClient.postApiAuthLogout()
   if (success) {
     clearSession()
+    toast.success('Logout successful')
     router.push({ name: ROUTES.LOGIN })
   }
 }

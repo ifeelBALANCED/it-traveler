@@ -1,0 +1,1 @@
+export { checkAuthenticationRequirements } from './requirements'
