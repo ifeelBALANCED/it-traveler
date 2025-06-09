@@ -4,11 +4,17 @@ import { storeToRefs } from 'pinia'
 import { Typography } from '@/shared/ui/typography'
 import { default as LocationCard } from './LocationCard.vue'
 import { default as LocationLoader } from './LocationLoader.vue'
-import { default as AddLocationModal } from './AddLocationModal.vue'
-import { default as EditLocationModal } from './EditLocationModal.vue'
+import AddLocationModal from './AddLocationModal.vue'
+import EditLocationModal from './EditLocationModal.vue'
 
 const locationStore = useLocations()
+const { removeLocation, setLocationEditId, addLocationModal, editLocationModal } = locationStore
 const { locations, isLoading, error } = storeToRefs(locationStore)
+
+const onLocationEdit = (id: string) => {
+  setLocationEditId(id)
+  editLocationModal.open()
+}
 </script>
 
 <template>
@@ -25,7 +31,7 @@ const { locations, isLoading, error } = storeToRefs(locationStore)
     <template v-else-if="locations.length === 0">
       <typography variant="body-2" class="text-gray-500 text-center">
         Немає маркерів.
-        <button class="text-action underline ml-1" @click="locationStore.addLocation">
+        <button class="text-action underline ml-1" @click="addLocationModal.open">
           Додайте перший
         </button>
       </typography>
@@ -39,14 +45,14 @@ const { locations, isLoading, error } = storeToRefs(locationStore)
       >
         <location-card
           :location="location"
-          @delete="locationStore.removeLocation"
-          @edit="locationStore.editLocation"
+          @delete="removeLocation(location.id)"
+          @edit="onLocationEdit(location.id)"
         />
       </div>
     </template>
   </section>
-  <add-location-modal />
-  <edit-location-modal />
+  <AddLocationModal />
+  <EditLocationModal />
 </template>
 
 <style scoped></style>

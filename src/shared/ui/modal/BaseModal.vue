@@ -99,7 +99,7 @@ defineExpose({
         </h2>
         <button
           @click="closeModal"
-          class="text-gray-400 hover:text-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded-lg p-1"
+          class="text-gray-400 hover:text-gray-600 rounded-lg p-1"
           aria-label="Close modal"
         >
           <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">

@@ -27,8 +27,7 @@ const emit = defineEmits<{
         {{ location.title }}
       </h3>
       <div class="flex space-x-1 opacity-0 group-hover:opacity-100 transition-opacity">
-        <button class="p-1 hover:text-orange-500 text-gray-400">
-          <!-- edit icon -->
+        <button class="p-1 hover:text-orange-500 text-gray-400" @click="emit('edit', location.id)">
           <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path
               stroke-linecap="round"

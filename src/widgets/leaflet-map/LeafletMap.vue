@@ -1,28 +1,3 @@
-<template>
-  <div class="w-full h-full">
-    <l-map
-      ref="mapRef"
-      :center="mapCenter"
-      :zoom="zoom"
-      :min-zoom="minZoom"
-      :max-zoom="maxZoom"
-      :max-bounds="mapBounds"
-      :max-bounds-viscosity="maxBoundsViscosity"
-      :world-copy-jump="worldCopyJump"
-      :use-global-leaflet="false"
-      style="width: 100%; height: 100%"
-      @ready="onMapReady"
-    >
-      <l-tile-layer
-        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-        :max-zoom="maxZoom"
-        layer-type="base"
-        name="OpenStreetMap"
-      />
-    </l-map>
-  </div>
-</template>
-
 <script setup lang="ts">
 import { ref, computed, toRefs } from 'vue'
 import { LMap, LTileLayer } from '@vue-leaflet/vue-leaflet'
@@ -65,3 +40,28 @@ function onMapReady(map: LeafletMapInstance) {
   map.setMaxBounds(mapBounds.value)
 }
 </script>
+
+<template>
+  <div class="w-full h-full">
+    <l-map
+      ref="mapRef"
+      :center="mapCenter"
+      :zoom="zoom"
+      :min-zoom="minZoom"
+      :max-zoom="maxZoom"
+      :max-bounds="mapBounds"
+      :max-bounds-viscosity="maxBoundsViscosity"
+      :world-copy-jump="worldCopyJump"
+      :use-global-leaflet="false"
+      style="width: 100%; height: 100%"
+      @ready="onMapReady"
+    >
+      <l-tile-layer
+        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+        :max-zoom="maxZoom"
+        layer-type="base"
+        name="OpenStreetMap"
+      />
+    </l-map>
+  </div>
+</template>

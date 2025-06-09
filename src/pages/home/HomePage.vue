@@ -12,6 +12,7 @@ import { LocationList, useLocations } from '@/features/location'
 const router = useRouter()
 const session = useSession()
 const locationsStore = useLocations()
+const { addLocationModal } = locationsStore
 const { clear: clearSession, user } = session
 
 async function handleLogout() {
@@ -51,7 +52,7 @@ async function handleLogout() {
           <Button
             :variant="ButtonVariants.Gradient"
             class="w-full font-semibold py-3"
-            @click="locationsStore.addLocation"
+            @click="addLocationModal.open"
           >
             <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path
