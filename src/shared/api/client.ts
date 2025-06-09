@@ -57,6 +57,13 @@ export type PostApiAuthRegister400One = {
   errors: PostApiAuthRegister400OneErrors
 }
 
+export type PostApiAuthRegister422OneErrors = { [key: string]: unknown }
+
+export type PostApiAuthRegister422One = {
+  success: boolean
+  errors: PostApiAuthRegister422OneErrors
+}
+
 export type PostApiAuthLoginBodyOne = {
   email: string
   /** @minLength 1 */
@@ -88,11 +95,11 @@ export type PostApiAuthLogin200One = {
   data: PostApiAuthLogin200OneData
 }
 
-export type PostApiAuthLogin400OneErrors = { [key: string]: unknown }
+export type PostApiAuthLogin422OneErrors = { [key: string]: unknown }
 
-export type PostApiAuthLogin400One = {
+export type PostApiAuthLogin422One = {
   success: boolean
-  errors: PostApiAuthLogin400OneErrors
+  errors: PostApiAuthLogin422OneErrors
 }
 
 export type PostApiAuthLogout200One = {
