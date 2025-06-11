@@ -1,6 +1,6 @@
 import { elysiaClient } from '@/shared/api'
 import { LoginFormSchema, RegisterFormSchema } from './schema'
-import { useAuthForm } from '@/shared/lib/form'
+import { useAsync } from '@/shared/lib/composables'
 import { useSession } from '@/entities/session'
 import { useRouter } from 'vue-router'
 import { toast } from 'vue-sonner'
@@ -10,16 +10,17 @@ export function useLoginForm() {
   const session = useSession()
   const router = useRouter()
 
-  return useAuthForm({
+  return useAsync({
     schema: LoginFormSchema,
     initialValues: { email: '', password: '' },
-    requestFn: async (formValues) => {
-      const { data: authCredentials, success } = await elysiaClient.postApiAuthLogin(formValues)
-      if (success) {
-        session.save(authCredentials)
-        toast.success('Login successful')
-        router.push({ name: ROUTES.HOME })
-      }
+    requestFn: async (values) => {
+      const { data } = await elysiaClient.postApiAuthLogin(values)
+      return data
+    },
+    onSuccess: async (creds) => {
+      session.save(creds)
+      toast.success('Вхід успішний')
+      await router.push({ name: ROUTES.HOME })
     },
   })
 }
@@ -28,7 +29,7 @@ export function useRegisterForm() {
   const session = useSession()
   const router = useRouter()
 
-  return useAuthForm({
+  return useAsync({
     schema: RegisterFormSchema,
     initialValues: {
       name: '',
@@ -36,13 +37,14 @@ export function useRegisterForm() {
       password: '',
       confirmPassword: '',
     },
-    requestFn: async (formValues) => {
-      const { data: authCredentials, success } = await elysiaClient.postApiAuthRegister(formValues)
-      if (success) {
-        session.save(authCredentials)
-        toast.success('Registration successful')
-        router.push({ name: ROUTES.HOME })
-      }
+    requestFn: async (values) => {
+      const { data } = await elysiaClient.postApiAuthRegister(values)
+      return data
+    },
+    onSuccess: async (creds) => {
+      session.save(creds)
+      toast.success('Реєстрація успішна')
+      await router.push({ name: ROUTES.HOME })
     },
   })
 }

@@ -8,11 +8,13 @@ import { ROUTES } from '@/shared/types'
 import { elysiaClient } from '@/shared/api'
 import { toast } from 'vue-sonner'
 import { LocationList, useLocations } from '@/features/location'
+import { storeToRefs } from 'pinia'
 
 const router = useRouter()
 const session = useSession()
 const locationsStore = useLocations()
-const { addLocationModal } = locationsStore
+const { markers } = storeToRefs(locationsStore)
+const { addLocationModal, setAddLocationCoords } = locationsStore
 const { clear: clearSession, user } = session
 
 async function handleLogout() {
@@ -22,6 +24,11 @@ async function handleLogout() {
     toast.success('Logout successful')
     router.push({ name: ROUTES.LOGIN })
   }
+}
+
+function handleMapClick(coords: { lat: number; lng: number }) {
+  setAddLocationCoords(coords)
+  addLocationModal.open()
 }
 </script>
 
@@ -87,7 +94,12 @@ async function handleLogout() {
     </aside>
 
     <div class="flex-1 relative">
-      <LeafletMap :initial-zoom="13" :center="[50.4501, 30.5234]" />
+      <LeafletMap
+        :initial-zoom="13"
+        :center="[50.4501, 30.5234]"
+        :markers="markers"
+        @map-click="handleMapClick"
+      />
     </div>
   </div>
 </template>

@@ -1,11 +1,9 @@
-import { useForm } from 'vee-validate'
-import { LocationFormSchema } from './schema'
-import { toTypedSchema } from '@vee-validate/zod'
 import { elysiaClient } from '@/shared/api'
 import { useLocations } from './model'
-import { ref } from 'vue'
 import { storeToRefs } from 'pinia'
 import { toast } from 'vue-sonner'
+import { useAsync } from '@/shared/lib/composables'
+import { LocationFormSchema } from './schema'
 
 const FORM_INITIAL_VALUES = {
   title: '',
@@ -16,62 +14,44 @@ const FORM_INITIAL_VALUES = {
   imageUrl: '',
 }
 
-export const useAddLocationForm = () => {
-  const isLoading = ref(false)
+export function useAddLocationForm() {
   const locationsStore = useLocations()
-  const { refetch } = locationsStore
-  const form = useForm({
-    validationSchema: toTypedSchema(LocationFormSchema),
+  const { refetch, addLocationModal, resetAddLocationCoords } = locationsStore
+
+  return useAsync({
+    schema: LocationFormSchema,
     initialValues: FORM_INITIAL_VALUES,
+    requestFn: async (values) => {
+      const { data } = await elysiaClient.postApiMarkers(values)
+      return data
+    },
+    onSuccess: () => {
+      toast.success('Маркер успішно додано')
+      addLocationModal.close()
+      refetch()
+      resetAddLocationCoords()
+    },
   })
-
-  const onLocationCreate = form.handleSubmit(async (values) => {
-    try {
-      isLoading.value = true
-      const { success } = await elysiaClient.postApiMarkers(values)
-      if (success) {
-        form.resetForm()
-        toast.success('Маркер успішно додано')
-        locationsStore.addLocationModal.close()
-        refetch()
-      }
-    } catch (error) {
-      console.error(error)
-    } finally {
-      isLoading.value = false
-    }
-  })
-
-  return { onLocationCreate, isLoading, form }
 }
 
-export const useEditLocationForm = () => {
-  const isLoading = ref(false)
+export function useEditLocationForm() {
   const locationsStore = useLocations()
   const { locationEditId } = storeToRefs(locationsStore)
-  const { refetch } = locationsStore
-  const form = useForm({
-    validationSchema: toTypedSchema(LocationFormSchema),
+  const { refetch, editLocationModal } = locationsStore
+
+  return useAsync({
+    schema: LocationFormSchema,
     initialValues: FORM_INITIAL_VALUES,
+    requestFn: async (values) => {
+      const id = locationEditId.value
+      if (!id) return
+      const { data } = await elysiaClient.putApiMarkersById(id, values)
+      return data
+    },
+    onSuccess: () => {
+      toast.success('Маркер успішно оновлено')
+      editLocationModal.close()
+      refetch()
+    },
   })
-
-  const onLocationEdit = form.handleSubmit(async (values) => {
-    try {
-      isLoading.value = true
-      const { success } = await elysiaClient.putApiMarkersById(locationEditId.value!, values)
-
-      if (success) {
-        form.resetForm()
-        toast.success('Маркер успішно оновлено')
-        locationsStore.editLocationModal.close()
-        refetch()
-      }
-    } catch (error) {
-      console.error(error)
-    } finally {
-      isLoading.value = false
-    }
-  })
-
-  return { onLocationEdit, isLoading, form }
 }
