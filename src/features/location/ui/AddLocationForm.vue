@@ -69,7 +69,6 @@ watch(
       label="URL зображення"
       placeholder="URL зображення"
       type="text"
-      required
       :disabled="isBusy"
     />
 

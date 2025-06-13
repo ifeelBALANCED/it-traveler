@@ -38,11 +38,7 @@ const onLocationEdit = (id: string) => {
     </template>
 
     <template v-else>
-      <div
-        v-for="location in locations"
-        :key="location.id"
-        class="group flex items-start p-3 bg-white rounded-lg border border-gray-200 hover:border-orange-300 hover:shadow-md transition-all duration-200 cursor-pointer"
-      >
+      <div v-for="location in locations" :key="location.id">
         <location-card
           :location="location"
           @delete="removeLocation(location.id)"

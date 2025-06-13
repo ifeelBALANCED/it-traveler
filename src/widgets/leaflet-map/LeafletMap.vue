@@ -1,12 +1,11 @@
 <script setup lang="ts">
-import { ref, computed, watch, nextTick } from 'vue'
+import { ref, computed, nextTick } from 'vue'
 import { LMap, LTileLayer, LMarker, LPopup, LControl } from '@vue-leaflet/vue-leaflet'
 import type {
   Map as LeafletMap,
   LatLngExpression,
   LatLngBoundsLiteral,
   PointExpression,
-  LatLngTuple,
 } from 'leaflet'
 import 'leaflet/dist/leaflet.css'
 
@@ -48,7 +47,6 @@ const emit = defineEmits<{
 }>()
 
 const mapRef = ref<InstanceType<typeof LMap> | null>(null)
-const lastMarkerId = ref<string | null>(null)
 const leafletMap = computed(() => mapRef.value?.leafletObject ?? null)
 const mapCenter = computed<PointExpression>(() => props.center as [number, number])
 const mapBounds = computed<LatLngBoundsLiteral>(() => props.maxBounds ?? defaultBounds)
@@ -78,33 +76,6 @@ function locateMe() {
     .locate({ setView: true, maxZoom: props.newMarkerZoom })
     .on('locationerror', () => console.warn('Location unavailable'))
 }
-
-function zoomToMarker(marker: Marker) {
-  if (!leafletMap.value || !props.zoomToNewMarker) return
-  leafletMap.value.flyTo([marker.latitude, marker.longitude], props.newMarkerZoom!, {
-    duration: 0.5,
-  })
-}
-
-watch(
-  () => props.markers,
-  (newList, oldList) => {
-    if (!leafletMap.value || !newList?.length) return
-
-    if (newList.length > 1) {
-      const coords = newList.map((m) => [m.latitude, m.longitude] as LatLngTuple)
-      nextTick(() => leafletMap.value?.fitBounds(coords, { padding: [40, 40] }))
-    } else {
-      const latest = newList[0]
-      const isNew = !oldList?.length || latest.id !== lastMarkerId.value
-      if (isNew) {
-        lastMarkerId.value = latest.id
-        nextTick(() => zoomToMarker(latest))
-      }
-    }
-  },
-  { immediate: true },
-)
 </script>
 
 <template>

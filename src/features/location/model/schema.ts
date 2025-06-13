@@ -18,5 +18,14 @@ export const LocationFormSchema = z.object({
     .min(-180, { message: 'Довгота повинна бути ≥ -180' })
     .max(180, { message: 'Довгота повинна бути ≤ 180' }),
   address: z.string().max(500, { message: 'Адреса не може перевищувати 500 символів' }).optional(),
-  imageUrl: z.string().url({ message: 'Має бути дійсним URI' }).optional(),
+
+  imageUrl: z.preprocess(
+    (val) => {
+      if (typeof val === 'string' && val.trim() === '') {
+        return undefined
+      }
+      return val
+    },
+    z.string().url({ message: 'Має бути дійсним URI' }).optional(),
+  ),
 })

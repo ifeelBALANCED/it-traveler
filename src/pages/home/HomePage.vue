@@ -9,6 +9,7 @@ import { elysiaClient } from '@/shared/api'
 import { toast } from 'vue-sonner'
 import { LocationList, useLocations } from '@/features/location'
 import { storeToRefs } from 'pinia'
+import { Icon } from '@/shared/ui/icon'
 
 const router = useRouter()
 const session = useSession()
@@ -21,7 +22,7 @@ async function handleLogout() {
   const { success } = await elysiaClient.postApiAuthLogout()
   if (success) {
     clearSession()
-    toast.success('Logout successful')
+    toast.success('Ви успішно вийшли з системи')
     router.push({ name: ROUTES.LOGIN })
   }
 }
@@ -35,17 +36,18 @@ function handleMapClick(coords: { lat: number; lng: number }) {
 <template>
   <div class="flex h-screen w-full overflow-hidden">
     <aside
-      class="flex-shrink-0 w-80 bg-white/95 backdrop-blur-sm shadow-2xl z-10 flex flex-col transition-transform duration-200"
+      class="flex-shrink-0 w-[379px] bg-white/95 backdrop-blur-sm shadow-2xl z-10 flex flex-col transition-transform duration-200"
     >
       <div class="p-4 border-b border-gray-200">
         <h1 class="text-lg font-semibold text-gray-800 mb-3">Карта</h1>
-        <div class="flex items-center p-3 bg-orange-100 rounded-lg">
+        <div class="flex items-center p-3 bg-orange-100 rounded-lg gap-x-3">
           <img
             v-if="user?.avatar"
-            :src="user.avatar"
+            :src="user?.avatar"
             :alt="user?.name ?? ''"
             class="w-10 h-10 rounded-full object-cover mr-3"
           />
+          <Icon v-else name="user-icon" class="w-8 h-8 rounded-full object-cover text-black" />
           <span v-if="user?.name" class="font-medium text-gray-800">{{ user.name }}</span>
         </div>
       </div>
