@@ -66,9 +66,15 @@ function onBlur(e: FocusEvent) {
 </script>
 
 <template>
-  <div class="flex flex-col w-full">
-    <label v-if="label" :for="inputId" class="mb-1 text-xs text-gray-700 font-normal tracking-wide">
-      {{ label }}<span v-if="required" class="ml-1 text-red-500">*</span>
+  <div class="flex flex-col w-full" data-testid="BaseTextarea-group" data-test="BaseTextarea.group">
+    <label
+      v-if="label"
+      :for="inputId"
+      class="mb-1 text-xs text-gray-700 font-normal tracking-wide"
+      data-testid="BaseTextarea-label"
+      data-test="BaseTextarea.label"
+    >
+      {{ label }}<span v-if="required" class="ml-1 text-red-500" aria-hidden="true">*</span>
     </label>
 
     <textarea
@@ -79,15 +85,25 @@ function onBlur(e: FocusEvent) {
       :disabled="disabled"
       :required="required"
       :rows="rows"
+      :aria-required="required ? 'true' : 'false'"
       :aria-invalid="!meta.valid"
       :aria-describedby="!meta.valid ? `${inputId}-error` : undefined"
+      data-testid="BaseTextarea-textarea"
+      data-test="BaseTextarea.textarea"
       :class="[baseClasses, stateClasses, extraClass]"
       @focus="emit('focus', $event)"
       @blur="onBlur"
       v-bind="$attrs"
     />
 
-    <p v-if="errorMessage" :id="`${inputId}-error`" class="mt-1 text-sm text-red-500">
+    <p
+      v-if="errorMessage"
+      :id="`${inputId}-error`"
+      class="mt-1 text-sm text-red-500"
+      role="alert"
+      data-testid="BaseTextarea-error"
+      data-test="BaseTextarea.error"
+    >
       {{ errorMessage }}
     </p>
   </div>

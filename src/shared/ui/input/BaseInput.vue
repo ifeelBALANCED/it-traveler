@@ -42,9 +42,15 @@ const {
 </script>
 
 <template>
-  <div class="flex flex-col w-full">
-    <label v-if="label" :for="name" class="mb-1 text-xs text-gray-700 font-normal tracking-wide">
-      {{ label }}<span v-if="required" class="ml-1 text-red-500">*</span>
+  <div class="flex flex-col w-full" data-testid="BaseInput-group" data-test="BaseInput.group">
+    <label
+      v-if="label"
+      :for="name"
+      class="mb-1 text-xs text-gray-700 font-normal tracking-wide"
+      data-testid="BaseInput-label"
+      data-test="BaseInput.label"
+    >
+      {{ label }}<span v-if="required" class="ml-1 text-red-500" aria-hidden="true">*</span>
     </label>
     <input
       :name="name"
@@ -52,14 +58,24 @@ const {
       :type="type"
       :value="inputValue"
       :placeholder="placeholder"
+      :aria-required="required ? 'true' : 'false'"
       :aria-invalid="!!errorMessage"
       :aria-describedby="errorMessage ? `${name}-error` : undefined"
+      data-testid="BaseInput-input"
+      data-test="BaseInput.input"
       @input="handleChange"
       @blur="handleBlur"
       :data-invalid="!!errorMessage"
     />
 
-    <p v-if="errorMessage" :id="`${name}-error`" class="mt-1 text-sm text-red-500">
+    <p
+      v-if="errorMessage"
+      :id="`${name}-error`"
+      class="mt-1 text-sm text-red-500"
+      role="alert"
+      data-testid="BaseInput-error"
+      data-test="BaseInput.error"
+    >
       {{ errorMessage }}
     </p>
   </div>

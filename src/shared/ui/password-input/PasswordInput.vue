@@ -48,9 +48,19 @@ const toggleEye = () => (show.value = !show.value)
 </script>
 
 <template>
-  <div class="flex flex-col w-full">
-    <label v-if="label" :for="name" class="mb-1 text-xs text-gray-700 font-normal tracking-wide">
-      {{ label }}<span v-if="required" class="ml-1 text-red-500">*</span>
+  <div
+    class="flex flex-col w-full"
+    data-testid="PasswordInput-group"
+    data-test="PasswordInput.group"
+  >
+    <label
+      v-if="label"
+      :for="name"
+      class="mb-1 text-xs text-gray-700 font-normal tracking-wide"
+      data-testid="PasswordInput-label"
+      data-test="PasswordInput.label"
+    >
+      {{ label }}<span v-if="required" class="ml-1 text-red-500" aria-hidden="true">*</span>
     </label>
     <div class="relative w-full">
       <input
@@ -59,8 +69,11 @@ const toggleEye = () => (show.value = !show.value)
         :type="inputType"
         :value="inputValue"
         :placeholder="placeholder"
+        :aria-required="required ? 'true' : 'false'"
         :aria-invalid="!!errorMessage"
         :aria-describedby="errorMessage ? `${name}-error` : undefined"
+        data-testid="PasswordInput-input"
+        data-test="PasswordInput.input"
         @input="handleChange"
         @blur="handleBlur"
         :data-invalid="!!errorMessage"
@@ -71,12 +84,23 @@ const toggleEye = () => (show.value = !show.value)
         type="button"
         class="absolute inset-y-0 right-2 flex items-center h-[calc(100%-2px)]"
         @click.stop="toggleEye"
+        :aria-label="show ? 'Hide password' : 'Show password'"
+        :aria-pressed="show ? 'true' : 'false'"
+        data-testid="PasswordInput-toggle"
+        data-test="PasswordInput.toggle"
       >
         <Icon :name="eyeIcon" class="h-5 w-5 text-gray-400 hover:text-gray-600 cursor-pointer" />
       </button>
     </div>
 
-    <p v-if="errorMessage" :id="`${name}-error`" class="mt-1 text-sm text-red-500">
+    <p
+      v-if="errorMessage"
+      :id="`${name}-error`"
+      class="mt-1 text-sm text-red-500"
+      role="alert"
+      data-testid="PasswordInput-error"
+      data-test="PasswordInput.error"
+    >
       {{ errorMessage }}
     </p>
   </div>

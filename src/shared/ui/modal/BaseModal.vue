@@ -81,6 +81,9 @@ defineExpose({
 
 <template>
   <dialog
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="modal-title"
     ref="dialogRef"
     :class="[
       'backdrop:bg-black/50 backdrop:backdrop-blur-sm',
@@ -94,10 +97,18 @@ defineExpose({
     <div class="p-6">
       <!-- Header -->
       <div class="flex items-center justify-between mb-4">
-        <h2 v-if="title" class="text-lg font-semibold text-gray-900">
+        <h2
+          v-if="title"
+          class="text-lg font-semibold text-gray-900"
+          id="modal-title"
+          data-testid="BaseModal-title"
+          data-test="BaseModal.title"
+        >
           {{ title }}
         </h2>
         <button
+          data-testid="BaseModal-close"
+          data-test="BaseModal.close"
           @click="closeModal"
           class="text-gray-400 hover:text-gray-600 rounded-lg p-1"
           aria-label="Close modal"
@@ -123,6 +134,8 @@ defineExpose({
       <!-- Footer -->
       <div v-if="showFooter" class="flex justify-end space-x-3">
         <button
+          data-testid="BaseModal-cancel"
+          data-test="BaseModal.cancel"
           @click="closeModal"
           class="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 rounded-md transition-colors"
         >
@@ -130,6 +143,8 @@ defineExpose({
         </button>
         <button
           @click="confirmAction"
+          data-testid="BaseModal-confirm"
+          data-test="BaseModal.confirm"
           class="px-4 py-2 text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded-md transition-colors"
         >
           {{ confirmText }}

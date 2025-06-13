@@ -98,7 +98,7 @@ function handleMapClick(coords: { lat: number; lng: number }) {
         :initial-zoom="13"
         :center="[50.4501, 30.5234]"
         :markers="markers"
-        @map-click="handleMapClick"
+        @mapClick="handleMapClick"
       />
     </div>
   </div>

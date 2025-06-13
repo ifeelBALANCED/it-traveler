@@ -92,6 +92,8 @@ const handleClick = (event: MouseEvent) => {
 
 <template>
   <component
+    data-testid="BaseButton-root"
+    data-test="BaseButton.root"
     :is="Tag"
     :class="[
       buttonStyles({

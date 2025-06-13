@@ -11,8 +11,20 @@ const { onSubmit } = useRegisterForm()
 
 <template>
   <FormSection>
-    <form class="flex flex-col space-y-5 w-full h-full" @submit.prevent="onSubmit">
-      <Input name="name" label="Ім'я користувача" placeholder="Введіть ім'я користувача" required />
+    <form
+      class="flex flex-col space-y-5 w-full h-full"
+      data-testid="RegisterForm-form"
+      data-test="RegisterForm.form"
+      @submit.prevent="onSubmit"
+    >
+      <Input
+        name="name"
+        label="Ім'я користувача"
+        placeholder="Введіть ім'я користувача"
+        required
+        data-testid="RegisterForm-name"
+        data-test="RegisterForm.name"
+      />
 
       <Input
         name="email"
@@ -20,18 +32,35 @@ const { onSubmit } = useRegisterForm()
         placeholder="email@example.com"
         type="email"
         required
+        data-testid="RegisterForm-email"
+        data-test="RegisterForm.email"
       />
 
-      <PasswordInput name="password" label="Пароль" placeholder="********" required />
+      <PasswordInput
+        name="password"
+        label="Пароль"
+        placeholder="********"
+        required
+        data-testid="RegisterForm-password"
+        data-test="RegisterForm.password"
+      />
 
       <PasswordInput
         name="confirmPassword"
         label="Підтвердження пароля"
         placeholder="********"
         required
+        data-testid="RegisterForm-confirmPassword"
+        data-test="RegisterForm.confirmPassword"
       />
 
-      <Button class="font-bold mt-auto" :variant="ButtonVariants.Gradient" type="submit">
+      <Button
+        class="font-bold mt-auto"
+        :variant="ButtonVariants.Gradient"
+        type="submit"
+        data-testid="RegisterForm-submit"
+        data-test="RegisterForm.submit"
+      >
         Створити акаунт
       </Button>
     </form>

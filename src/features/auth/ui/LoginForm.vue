@@ -11,16 +11,30 @@ const { onSubmit, isLoading } = useLoginForm()
 
 <template>
   <FormSection>
-    <form class="flex flex-col space-y-5 w-full h-full" @submit.prevent="onSubmit">
+    <form
+      class="flex flex-col space-y-5 w-full h-full"
+      data-testid="LoginForm-form"
+      data-test="LoginForm.form"
+      @submit.prevent="onSubmit"
+    >
       <Input
         name="email"
         label="Електронна пошта"
         placeholder="email@example.com"
         type="email"
         required
+        data-testid="LoginForm-email"
+        data-test="LoginForm.email"
       />
 
-      <PasswordInput name="password" label="Пароль" placeholder="********" required />
+      <PasswordInput
+        name="password"
+        label="Пароль"
+        placeholder="********"
+        required
+        data-testid="LoginForm-password"
+        data-test="LoginForm.password"
+      />
 
       <Button
         type="submit"
@@ -28,6 +42,8 @@ const { onSubmit, isLoading } = useLoginForm()
         :variant="ButtonVariants.Gradient"
         :disabled="isLoading"
         :loading="isLoading"
+        data-testid="LoginForm-submit"
+        data-test="LoginForm.submit"
       >
         {{ isLoading ? 'Завантаження...' : 'Увійти' }}
       </Button>
