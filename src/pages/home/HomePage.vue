@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { ButtonVariants } from '@/shared/types'
-import { Button } from '@/shared/ui/button'
 import { LeafletMap } from '@/widgets/leaflet-map'
 import { useSession } from '@/entities/session'
 import { useRouter } from 'vue-router'
@@ -57,23 +55,6 @@ function handleMapClick(coords: { lat: number; lng: number }) {
           <h2 class="text-sm font-medium text-gray-600">Додані маркери</h2>
         </div>
         <location-list />
-        <div class="p-4 border-t border-gray-200">
-          <Button
-            :variant="ButtonVariants.Gradient"
-            class="w-full font-semibold py-3"
-            @click="addLocationModal.open"
-          >
-            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M12 4v16m8-8H4"
-              />
-            </svg>
-            Додати маркер
-          </Button>
-        </div>
       </div>
 
       <div class="p-4 border-t border-gray-200">
