@@ -2,18 +2,49 @@
 import { watch } from 'vue'
 import { storeToRefs } from 'pinia'
 
-import { useEditLocationForm } from '../model'
-import { useLocations } from '../model'
+import { useEditLocationForm, useLocations } from '../model'
 import { elysiaClient } from '@/shared/api'
+import type { GetApiMarkersMyMarkers200OneDataItem as Location } from '@/shared/api/client'
 import { ButtonVariants } from '@/shared/types'
 import { Button } from '@/shared/ui/button'
 import { Input } from '@/shared/ui/input'
 
 const locationsStore = useLocations()
-const { editLocationModal, resetLocationEditId } = locationsStore
-const { locationEditId } = storeToRefs(locationsStore)
+const {
+  editLocationModal,
+  resetLocationEditId,
+  resetEditLocationCoords,
+  clearTemporaryMarkerPosition,
+} = locationsStore
+const { locationEditId, editLocationCoords, locations } = storeToRefs(locationsStore)
 
 const { form, onSubmit, isLoading: isSubmitting, handleReset } = useEditLocationForm()
+
+function prepareFormData(locationData: Location) {
+  const formData = {
+    ...locationData,
+    description: locationData.description ?? '',
+    address: locationData.address ?? '',
+    imageUrl: locationData.imageUrl ?? '',
+  }
+
+  if (editLocationCoords.value) {
+    formData.latitude = editLocationCoords.value.lat
+    formData.longitude = editLocationCoords.value.lng
+  }
+
+  return formData
+}
+
+async function getLocationData(id: string): Promise<Location> {
+  const localLocation = locations.value.find((location) => location.id === id)
+  if (localLocation) {
+    return localLocation
+  }
+
+  const { data } = await elysiaClient.getApiMarkersById(id)
+  return data
+}
 
 async function prefillForm() {
   handleReset()
@@ -22,28 +53,34 @@ async function prefillForm() {
   if (!id) return
 
   try {
-    const { data } = await elysiaClient.getApiMarkersById(id)
-    form.setValues({
-      ...data,
-      description: data.description ?? '',
-      address: data.address ?? '',
-      imageUrl: data.imageUrl ?? '',
-    })
-  } catch (err) {
-    console.error(err)
+    const locationData = await getLocationData(id)
+    const formData = prepareFormData(locationData)
+    form.setValues(formData)
+  } catch (error) {
+    console.error('Failed to load location data:', error)
   }
 }
 
 function resetFormState() {
+  const markerId = locationEditId.value
+
+  if (markerId) {
+    clearTemporaryMarkerPosition(markerId)
+  }
+
   handleReset()
   resetLocationEditId()
+  resetEditLocationCoords()
 }
 
 watch(
   () => editLocationModal.isOpen,
-  (open) => {
-    if (open) prefillForm()
-    else resetFormState()
+  (isOpen) => {
+    if (isOpen) {
+      prefillForm()
+    } else {
+      resetFormState()
+    }
   },
   { immediate: true },
 )

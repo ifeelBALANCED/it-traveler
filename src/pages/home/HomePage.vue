@@ -8,12 +8,28 @@ import { toast } from 'vue-sonner'
 import { LocationList, useLocations } from '@/features/location'
 import { storeToRefs } from 'pinia'
 import { Icon } from '@/shared/ui/icon'
+import { EditLocationModal } from '@/features/location/ui'
+
+interface Marker {
+  id: string
+  latitude: number
+  longitude: number
+  title?: string
+}
 
 const router = useRouter()
 const session = useSession()
 const locationsStore = useLocations()
 const { markers } = storeToRefs(locationsStore)
-const { addLocationModal, setAddLocationCoords } = locationsStore
+const {
+  addLocationModal,
+  setAddLocationCoords,
+  editLocationModal,
+  setLocationEditId,
+  setEditLocationCoords,
+  setOriginalLocationCoords,
+  setTemporaryMarkerPosition,
+} = locationsStore
 const { clear: clearSession, user } = session
 
 async function handleLogout() {
@@ -28,6 +44,14 @@ async function handleLogout() {
 function handleMapClick(coords: { lat: number; lng: number }) {
   setAddLocationCoords(coords)
   addLocationModal.open()
+}
+
+function handleMarkerDrag(marker: Marker, newCoords: { lat: number; lng: number }) {
+  setOriginalLocationCoords({ lat: marker.latitude, lng: marker.longitude })
+  setTemporaryMarkerPosition(marker.id, newCoords)
+  setLocationEditId(marker.id)
+  setEditLocationCoords(newCoords)
+  editLocationModal.open()
 }
 </script>
 
@@ -82,7 +106,10 @@ function handleMapClick(coords: { lat: number; lng: number }) {
         :center="[50.4501, 30.5234]"
         :markers="markers"
         @mapClick="handleMapClick"
+        @markerDrag="handleMarkerDrag"
       />
     </div>
+
+    <EditLocationModal />
   </div>
 </template>

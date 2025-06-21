@@ -8,6 +8,7 @@ import type {
   LatLngTuple,
   LatLngBoundsExpression,
   PointExpression,
+  DragEndEvent,
 } from 'leaflet'
 import 'leaflet/dist/leaflet.css'
 import { Icon } from '@/shared/ui/icon'
@@ -45,6 +46,7 @@ const props = withDefaults(defineProps<Props>(), {
 const emit = defineEmits<{
   mapClick: [coords: { lat: number; lng: number }]
   markerClick: [marker: Marker]
+  markerDrag: [marker: Marker, newCoords: { lat: number; lng: number }]
 }>()
 
 const mapRef = ref<InstanceType<typeof LMap>>()
@@ -117,6 +119,14 @@ const initializeMap = (map: LeafletMap) => {
   map.on('click', handleMapClick)
 }
 
+const handleMarkerDrag = (marker: Marker, e: DragEndEvent) => {
+  const newCoords = {
+    lat: e.target.getLatLng().lat,
+    lng: e.target.getLatLng().lng,
+  }
+  emit('markerDrag', marker, newCoords)
+}
+
 onBeforeUnmount(() => {
   const map = leafletMap.value
   if (map) {
@@ -166,7 +176,9 @@ onBeforeUnmount(() => {
         v-for="marker in props.markers"
         :key="marker.id"
         :lat-lng="[marker.latitude, marker.longitude]"
+        :draggable="true"
         @click="emit('markerClick', marker)"
+        @dragend="handleMarkerDrag(marker, $event)"
         class="drop-animation"
       >
         <l-popup>{{ marker.title || 'Без назви' }}</l-popup>

@@ -9,6 +9,9 @@ import { toast } from 'vue-sonner'
 export const useLocations = defineStore('locations', () => {
   const locationEditId = ref<Location['id'] | null>(null)
   const addLocationCoords = ref<{ lat: number; lng: number } | null>(null)
+  const editLocationCoords = ref<{ lat: number; lng: number } | null>(null)
+  const originalLocationCoords = ref<{ lat: number; lng: number } | null>(null)
+  const temporaryMarkerPositions = ref<Record<string, { lat: number; lng: number }>>({})
   const addLocationModal = useModal()
   const editLocationModal = useModal()
 
@@ -45,13 +48,44 @@ export const useLocations = defineStore('locations', () => {
     addLocationCoords.value = null
   }
 
+  function setEditLocationCoords(coords: { lat: number; lng: number }) {
+    editLocationCoords.value = coords
+  }
+
+  function resetEditLocationCoords() {
+    editLocationCoords.value = null
+  }
+
+  function setOriginalLocationCoords(coords: { lat: number; lng: number }) {
+    originalLocationCoords.value = coords
+  }
+
+  function resetOriginalLocationCoords() {
+    originalLocationCoords.value = null
+  }
+
+  function setTemporaryMarkerPosition(markerId: string, coords: { lat: number; lng: number }) {
+    temporaryMarkerPositions.value[markerId] = coords
+  }
+
+  function clearTemporaryMarkerPosition(markerId: string) {
+    delete temporaryMarkerPositions.value[markerId]
+  }
+
+  function resetTemporaryMarkerPositions() {
+    temporaryMarkerPositions.value = {}
+  }
+
   const markers = computed(() => {
-    return locations.value.map(({ id, latitude, longitude, title }) => ({
-      id,
-      latitude,
-      longitude,
-      title,
-    }))
+    return locations.value.map(({ id, latitude, longitude, title }) => {
+      const tempPosition = temporaryMarkerPositions.value[id]
+      return {
+        id,
+        latitude: tempPosition?.lat ?? latitude,
+        longitude: tempPosition?.lng ?? longitude,
+        title,
+      }
+    })
   })
 
   return {
@@ -69,5 +103,14 @@ export const useLocations = defineStore('locations', () => {
     addLocationCoords,
     setAddLocationCoords,
     resetAddLocationCoords,
+    editLocationCoords,
+    setEditLocationCoords,
+    resetEditLocationCoords,
+    originalLocationCoords,
+    setOriginalLocationCoords,
+    resetOriginalLocationCoords,
+    setTemporaryMarkerPosition,
+    clearTemporaryMarkerPosition,
+    resetTemporaryMarkerPositions,
   }
 })

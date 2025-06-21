@@ -37,7 +37,7 @@ export function useAddLocationForm() {
 export function useEditLocationForm() {
   const locationsStore = useLocations()
   const { locationEditId } = storeToRefs(locationsStore)
-  const { refetch, editLocationModal } = locationsStore
+  const { refetch, editLocationModal, clearTemporaryMarkerPosition } = locationsStore
 
   return useAsync({
     schema: LocationFormSchema,
@@ -49,6 +49,12 @@ export function useEditLocationForm() {
       return data
     },
     onSuccess: () => {
+      const markerId = locationEditId.value
+      // Clear temporary marker position as the change is now permanent
+      if (markerId) {
+        clearTemporaryMarkerPosition(markerId)
+      }
+
       toast.success('Маркер успішно оновлено')
       editLocationModal.close()
       refetch()
