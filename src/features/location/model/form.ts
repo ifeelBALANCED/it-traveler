@@ -50,7 +50,6 @@ export function useEditLocationForm() {
     },
     onSuccess: () => {
       const markerId = locationEditId.value
-      // Clear temporary marker position as the change is now permanent
       if (markerId) {
         clearTemporaryMarkerPosition(markerId)
       }
