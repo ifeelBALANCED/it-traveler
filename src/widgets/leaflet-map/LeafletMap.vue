@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, computed, nextTick, onBeforeUnmount } from 'vue'
-import { LMap, LTileLayer, LMarker, LPopup, LControl } from '@vue-leaflet/vue-leaflet'
+import { LMap, LTileLayer, LMarker, LPopup } from '@vue-leaflet/vue-leaflet'
 import type {
   Map as LeafletMap,
   LatLngBoundsLiteral,
@@ -127,6 +127,12 @@ const handleMarkerDrag = (marker: Marker, e: DragEndEvent) => {
   emit('markerDrag', marker, newCoords)
 }
 
+defineExpose({
+  resetView,
+  locateMe,
+  toggleAddMode,
+})
+
 onBeforeUnmount(() => {
   const map = leafletMap.value
   if (map) {
@@ -183,29 +189,6 @@ onBeforeUnmount(() => {
       >
         <l-popup>{{ marker.title || 'Без назви' }}</l-popup>
       </l-marker>
-
-      <l-control position="bottomleft">
-        <div class="flex flex-col space-y-2 p-2 bg-white/80 rounded-lg shadow-lg">
-          <button @click.stop="resetView" title="Reset view" class="control-btn">
-            <Icon name="reset-icon" class="size-6 text-blue-500" />
-          </button>
-          <button @click.stop="locateMe" title="Locate me" class="control-btn">
-            <Icon name="locate-icon" class="size-6 text-blue-500" />
-          </button>
-
-          <button
-            @click.stop="toggleAddMode"
-            :title="isAddMode ? 'Click map to drop pin' : 'Add a pin'"
-            :class="['control-btn transition-all', isAddMode ? 'bg-blue-200' : '']"
-          >
-            <Icon
-              name="pin-icon"
-              class="size-6 text-blue-500"
-              :class="isAddMode ? 'animate-bounce' : ''"
-            />
-          </button>
-        </div>
-      </l-control>
     </l-map>
   </div>
 </template>

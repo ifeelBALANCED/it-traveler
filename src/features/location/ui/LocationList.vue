@@ -4,8 +4,6 @@ import { storeToRefs } from 'pinia'
 import { Typography } from '@/shared/ui/typography'
 import { default as LocationCard } from './LocationCard.vue'
 import { default as LocationLoader } from './LocationLoader.vue'
-import AddLocationModal from './AddLocationModal.vue'
-import EditLocationModal from './EditLocationModal.vue'
 
 const locationStore = useLocations()
 const { removeLocation, setLocationEditId, addLocationModal, editLocationModal } = locationStore
@@ -18,7 +16,7 @@ const onLocationEdit = (id: string) => {
 </script>
 
 <template>
-  <section class="flex-1 overflow-y-auto px-4 py-2 space-y-3">
+  <section class="flex-1 overflow-y-auto py-1 space-y-3">
     <template v-if="isLoading">
       <location-loader />
     </template>
@@ -47,8 +45,6 @@ const onLocationEdit = (id: string) => {
       </div>
     </template>
   </section>
-  <AddLocationModal />
-  <EditLocationModal />
 </template>
 
 <style scoped></style>

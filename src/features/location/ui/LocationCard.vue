@@ -60,7 +60,7 @@ const location = toRef(props, 'location')
         </div>
       </div>
       <p
-        class="mt-2 text-sm text-gray-600 line-clamp-2 break-words transition-colors duration-200 group-hover:text-gray-800"
+        class="mt-2 text-sm text-left text-gray-600 line-clamp-2 break-words transition-colors duration-200 group-hover:text-gray-800"
       >
         {{ location.description || 'Немає опису' }}
       </p>
