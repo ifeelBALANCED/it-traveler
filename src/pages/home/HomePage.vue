@@ -9,6 +9,7 @@ import { toast } from 'vue-sonner'
 import { LocationList, useLocations } from '@/features/location'
 import { storeToRefs } from 'pinia'
 import { EditLocationModal, AddLocationModal } from '@/features/location'
+import { Icon } from '@/shared/ui/icon'
 
 interface Marker {
   id: string
@@ -109,20 +110,10 @@ function handleToggleAddMode() {
               </h1>
             </div>
             <button @click="toggleSidebar" class="btn-ghost btn-sm p-2 rounded-xl">
-              <svg
-                class="w-5 h-5 transition-transform duration-200"
-                :class="sidebarCollapsed ? 'rotate-180' : ''"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M11 19l-7-7 7-7m8 14l-7-7 7-7"
-                />
-              </svg>
+              <Icon
+                name="chevron-left"
+                :class="`w-5 h-5 transition-transform duration-200 ${sidebarCollapsed ? 'rotate-180' : ''}`"
+              />
             </button>
           </div>
 
@@ -153,19 +144,10 @@ function handleToggleAddMode() {
                 title="Скинути вигляд"
                 class="flex flex-col items-center justify-center p-3 bg-blue-500 hover:bg-blue-600 text-white rounded-lg transition-all duration-200 group shadow-sm h-16 aspect-square"
               >
-                <svg
+                <Icon
+                  name="refresh"
                   class="w-4 h-4 mb-1 group-hover:scale-110 transition-transform duration-200 flex-shrink-0"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
-                  />
-                </svg>
+                />
                 <span class="text-xs font-medium text-center leading-tight">Скинути</span>
               </button>
 
@@ -174,19 +156,10 @@ function handleToggleAddMode() {
                 title="Моє місцезнаходження"
                 class="flex flex-col items-center justify-center p-3 bg-blue-500 hover:bg-blue-600 text-white rounded-lg transition-all duration-200 group shadow-sm h-16 aspect-square"
               >
-                <svg
+                <Icon
+                  name="location"
                   class="w-4 h-4 mb-1 group-hover:scale-110 transition-transform duration-200 flex-shrink-0"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z M15 11a3 3 0 11-6 0 3 3 0 6 0z"
-                  />
-                </svg>
+                />
                 <span class="text-xs font-medium text-center leading-tight">Локація</span>
               </button>
 
@@ -195,19 +168,10 @@ function handleToggleAddMode() {
                 title="Режим додавання"
                 class="flex flex-col items-center justify-center p-3 bg-blue-500 hover:bg-blue-600 text-white rounded-lg transition-all duration-200 group shadow-sm h-16 aspect-square"
               >
-                <svg
+                <Icon
+                  name="plus"
                   class="w-4 h-4 mb-1 group-hover:scale-110 transition-transform duration-200 flex-shrink-0 text-white"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M12 4v16m8-8H4"
-                  />
-                </svg>
+                />
                 <span class="text-xs font-medium text-center leading-tight text-white">Додати</span>
               </button>
             </div>
@@ -221,19 +185,10 @@ function handleToggleAddMode() {
               title="Скинути вигляд"
               class="w-10 h-10 bg-blue-500 hover:bg-blue-600 text-white rounded-lg transition-all duration-200 group flex items-center justify-center"
             >
-              <svg
+              <Icon
+                name="refresh"
                 class="w-4 h-4 group-hover:scale-110 transition-transform duration-200"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
-                />
-              </svg>
+              />
             </button>
 
             <button
@@ -241,19 +196,10 @@ function handleToggleAddMode() {
               title="Моє місцезнаходження"
               class="w-10 h-10 bg-blue-500 hover:bg-blue-600 text-white rounded-lg transition-all duration-200 group flex items-center justify-center"
             >
-              <svg
+              <Icon
+                name="location"
                 class="w-4 h-4 group-hover:scale-110 transition-transform duration-200"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z M15 11a3 3 0 11-6 0 3 3 0 6 0z"
-                />
-              </svg>
+              />
             </button>
 
             <button
@@ -261,19 +207,10 @@ function handleToggleAddMode() {
               title="Режим додавання"
               class="w-10 h-10 bg-blue-500 hover:bg-blue-600 text-white rounded-lg transition-all duration-200 group flex items-center justify-center"
             >
-              <svg
+              <Icon
+                name="plus"
                 class="w-4 h-4 group-hover:scale-110 transition-transform duration-200"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M12 4v16m8-8H4"
-                />
-              </svg>
+              />
             </button>
           </div>
         </div>
@@ -298,19 +235,10 @@ function handleToggleAddMode() {
                 sidebarCollapsed ? 'px-2' : '',
               ]"
             >
-              <svg
-                :class="['w-6 h-6 group-hover:scale-110 transition-transform duration-200']"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
-                />
-              </svg>
+              <Icon
+                name="logout"
+                class="w-6 h-6 group-hover:scale-110 transition-transform duration-200"
+              />
               <span v-if="!sidebarCollapsed">Вихід</span>
             </button>
           </div>
