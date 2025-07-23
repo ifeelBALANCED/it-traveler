@@ -27,7 +27,7 @@
     "@vue-leaflet/vue-leaflet": "^0.10.1",
     "@vueuse/core": "^13.4.0",
     "autoprefixer": "^10.4.21",
-    "axios": "^1.10.0",
+    "axios": "^1.11.0",
     "check-password-strength": "^3.0.0",
     "class-variance-authority": "^0.7.1",
     "classnames": "^2.5.1",
